@@ -1,0 +1,2436 @@
+{
+  "id": "740d8158-0641-4099-bcc8-4663f3159317",
+  "revision": 0,
+  "last_node_id": 184,
+  "last_link_id": 341,
+  "nodes": [
+    {
+      "id": 92,
+      "type": "SaveVideo",
+      "pos": [
+        1099.3706339999999,
+        5411.072339
+      ],
+      "size": [
+        373.109375,
+        126
+      ],
+      "flags": {},
+      "order": 44,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 260
+        }
+      ],
+      "outputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0"
+      },
+      "widgets_values": [
+        "video/MiniMax_H3",
+        "auto",
+        "auto"
+      ]
+    },
+    {
+      "id": 115,
+      "type": "ResolutionSelector",
+      "pos": [
+        -1310.6293659999997,
+        5669.813607
+      ],
+      "size": [
+        270,
+        170
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "showAdvanced": false,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            276
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            277
+          ]
+        }
+      ],
+      "title": "Resolution Selector (Size)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "ResolutionSelector"
+      },
+      "widgets_values": [
+        "16:9 (Widescreen)",
+        0.9,
+        32
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 116,
+      "type": "MarkdownNote",
+      "pos": [
+        -3859.5912600675656,
+        5166.67545664884
+      ],
+      "size": [
+        450,
+        889.6875
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: MiniMax H3",
+      "properties": {},
+      "widgets_values": [
+        "## MiniMax H3\n\n[MiniMax H3](https://www.minimax.io/blog/minimax-h3) is MiniMax's general-purpose, omni-modal generation model. It jointly understands text, image, video, and audio, and generates video with **native stereo audio**: voice, sound effects, and music are modeled jointly in a single forward pass, not layered on afterward. Output is up to 2K resolution, 24fps, and up to about 15 seconds.\n\n## ComfyUI links\n- [ComfyUI#15224](https://github.com/Comfy-Org/ComfyUI/pull/15224)\n- [🤗 Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3)\n\n## About this workflow\n\nThis template runs the **reference-to-video (ref2va)** task using the `MiniMaxH3ReferenceToVideo` node. It takes any mix of reference images, videos, and standalone audio, and weaves them into the generation to lock in a character's identity, a style, a motion, a camera move, or a voice.\n\n**Key inputs**\n\n- **ref_images / ref_videos / ref_video_audios / ref_audios**: up to 9 reference images, 3 reference videos (each may carry its own paired soundtrack), and 3 standalone reference audio clips\n- **prompt**: reference the inputs by tag, in the exact order they were connected, for example `<Picture 1>`, `<Video 1>`, `<Audio 1>`, then describe the target scene, motion, and audio\n- **ref_image_size**: `match` scales references down to the generation's resolution (faster); `max` keeps up to a 2048px short edge for stronger identity fidelity, at the cost of speed since reference tokens ride along every sampling step\n- **width / height**: set via Resolution Selector.\n- **duration (seconds)**: converted to a valid frame `length` by the Math Expression node\n\n**Sampling and decode**\n\n- Sampler: `res_multistep`. `beta` or `normal` scheduler tends to outperform `simple` for reference-heavy prompts like this one\n- The sampler's joint audio+video `LATENT` output feeds directly into both `VAEDecode` (video, `minimax_h3_video_vae_fp16`) and `VAEDecodeAudio` (audio, `minimax_h3_audio_vae_fp32`); each decode node automatically pulls its own half out of the packed latent. `CreateVideo` then muxes the two into a single MP4 with synced sound\n- The diffusion model here is `minimax_h3_ref2va_pruned_int8_convrot.safetensors`, a different set of weights from the `fl2va` model used by the t2v/i2v templates\n\nRef2va's output is very sensitive to prompt wording; matching the reference tags precisely and being explicit about which reference drives which part of the shot tends to work best."
+      ],
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 117,
+      "type": "MarkdownNote",
+      "pos": [
+        -3872.286320585135,
+        4320.841394674986
+      ],
+      "size": [
+        440,
+        740
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: Model Links",
+      "properties": {},
+      "widgets_values": [
+        "## Model Links\n[🤗 Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3)\n\n**vae**\n\n- [minimax_h3_video_vae_fp16.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors)\n- [minimax_h3_audio_vae_fp32.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors)\n\n**diffusion_models**\n\n- [minimax_h3_ref2va_pruned_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors)\n\n**text_encoders**\n\n- [qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors)\n\n\n## Model Storage Location\n\n```\n📂 ComfyUI/\n├── 📂 models/\n│   ├── 📂 vae/\n│   │   ├── minimax_h3_video_vae_fp16.safetensors\n│   │   └── minimax_h3_audio_vae_fp32.safetensors\n│   ├── 📂 diffusion_models/\n│   │   └── minimax_h3_ref2va_pruned_int8_convrot.safetensors\n│   └── 📂 text_encoders/\n│       └── qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors\n```\n\n## Report Issue\n\nNote: Please update ComfyUI first ([guide](https://docs.comfy.org/installation/update_comfyui)) and prepare required models. Desktop/Cloud updates follow stable releases, so some nightly-supported models may not be available yet.\n\n- Cannot run / runtime errors: [ComfyUI/issues](https://github.com/comfyanonymous/ComfyUI/issues)\n- UI / frontend issues: [ComfyUI_frontend/issues](https://github.com/Comfy-Org/ComfyUI_frontend/issues)\n- Workflow issues: [workflow_templates/issues](https://github.com/Comfy-Org/workflow_templates/issues)\n"
+      ],
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 119,
+      "type": "VAELoader",
+      "pos": [
+        -1985.889877,
+        5349.610511999999
+      ],
+      "size": [
+        640,
+        86
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            251,
+            273
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "VAELoader",
+        "models": [
+          {
+            "name": "minimax_h3_video_vae_fp16.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors",
+            "directory": "vae"
+          }
+        ]
+      },
+      "widgets_values": [
+        "minimax-h3\\minimax_h3_video_vae_fp16.safetensors"
+      ]
+    },
+    {
+      "id": 120,
+      "type": "VAELoader",
+      "pos": [
+        -1990.6293660000001,
+        5511.072339
+      ],
+      "size": [
+        650,
+        86
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            250,
+            274
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "VAELoader",
+        "models": [
+          {
+            "name": "minimax_h3_audio_vae_fp32.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors",
+            "directory": "vae"
+          }
+        ]
+      },
+      "widgets_values": [
+        "minimax-h3\\minimax_h3_audio_vae_fp32.safetensors"
+      ]
+    },
+    {
+      "id": 121,
+      "type": "VAEDecodeAudio",
+      "pos": [
+        529.3706339999999,
+        5501.072339
+      ],
+      "size": [
+        230,
+        60
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 42,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 281
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 250
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            259
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "VAEDecodeAudio"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 122,
+      "type": "VAEDecode",
+      "pos": [
+        529.3706339999999,
+        5351.072339
+      ],
+      "size": [
+        230,
+        60
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 41,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 280
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 251
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            258
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 123,
+      "type": "KSamplerSelect",
+      "pos": [
+        -229.88346300000012,
+        4560
+      ],
+      "size": [
+        370,
+        70
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            299
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "KSamplerSelect"
+      },
+      "widgets_values": [
+        "res_multistep"
+      ]
+    },
+    {
+      "id": 124,
+      "type": "BasicScheduler",
+      "pos": [
+        -232.88346300000012,
+        4684
+      ],
+      "size": [
+        370,
+        130
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 302
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            256
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "BasicScheduler"
+      },
+      "widgets_values": [
+        "simple",
+        20,
+        1
+      ]
+    },
+    {
+      "id": 125,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        287.5406153000001,
+        4876.0583822
+      ],
+      "size": [
+        230,
+        140
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise",
+          "type": "NOISE",
+          "link": 253
+        },
+        {
+          "name": "guider",
+          "type": "GUIDER",
+          "link": 254
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 299
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 256
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 271
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            280,
+            281
+          ]
+        },
+        {
+          "name": "denoised_output",
+          "type": "LATENT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "SamplerCustomAdvanced"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 126,
+      "type": "BasicGuider",
+      "pos": [
+        -229.88346300000012,
+        4450
+      ],
+      "size": [
+        360,
+        60
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 301
+        },
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 270
+        }
+      ],
+      "outputs": [
+        {
+          "name": "GUIDER",
+          "type": "GUIDER",
+          "links": [
+            254
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "BasicGuider"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 127,
+      "type": "UNETLoader",
+      "pos": [
+        -1975.3583737179988,
+        4450.068432326
+      ],
+      "size": [
+        640,
+        90
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            306
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "UNETLoader",
+        "models": [
+          {
+            "name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+            "directory": "diffusion_models"
+          }
+        ]
+      },
+      "widgets_values": [
+        "minimax-h3\\minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+        "default"
+      ]
+    },
+    {
+      "id": 128,
+      "type": "CLIPLoader",
+      "pos": [
+        -1979.2706243349994,
+        4938.736961711001
+      ],
+      "size": [
+        640,
+        120
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            272
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "CLIPLoader",
+        "models": [
+          {
+            "name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+            "directory": "text_encoders"
+          }
+        ]
+      },
+      "widgets_values": [
+        "minimax-h3\\qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "minimax",
+        "default"
+      ]
+    },
+    {
+      "id": 129,
+      "type": "RandomNoise",
+      "pos": [
+        -229.88346300000012,
+        4310
+      ],
+      "size": [
+        360,
+        90
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "NOISE",
+          "type": "NOISE",
+          "links": [
+            253
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "RandomNoise"
+      },
+      "widgets_values": [
+        130269647765546,
+        "randomize"
+      ]
+    },
+    {
+      "id": 130,
+      "type": "CreateVideo",
+      "pos": [
+        799.3706339999999,
+        5411.072339
+      ],
+      "size": [
+        270,
+        110
+      ],
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 258
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 259
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            260
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "CreateVideo"
+      },
+      "widgets_values": [
+        24,
+        8
+      ]
+    },
+    {
+      "id": 131,
+      "type": "ComfyMathExpression",
+      "pos": [
+        -1007.3193179999998,
+        5903.543122
+      ],
+      "size": [
+        225,
+        142
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 37,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "a",
+          "name": "values.a",
+          "type": "FLOAT,INT,BOOLEAN",
+          "link": 261
+        },
+        {
+          "label": "b",
+          "name": "values.b",
+          "shape": 7,
+          "type": "FLOAT,INT,BOOLEAN",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": []
+        },
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            275
+          ]
+        },
+        {
+          "name": "BOOL",
+          "type": "BOOLEAN",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "ComfyMathExpression"
+      },
+      "widgets_values": [
+        "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17"
+      ]
+    },
+    {
+      "id": 132,
+      "type": "PrimitiveFloat",
+      "pos": [
+        -1307.3193179999998,
+        5903.543122
+      ],
+      "size": [
+        270,
+        70
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "FLOAT",
+          "widget": {
+            "name": "value"
+          },
+          "link": 324
+        }
+      ],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            261
+          ]
+        }
+      ],
+      "title": "Float (Duration)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "PrimitiveFloat"
+      },
+      "widgets_values": [
+        14.5
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 136,
+      "type": "MiniMaxH3ReferenceToVideo",
+      "pos": [
+        -709.4277835823003,
+        4934.303696539901
+      ],
+      "size": [
+        410,
+        414
+      ],
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 272
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 273
+        },
+        {
+          "name": "audio_vae",
+          "type": "VAE",
+          "link": 274
+        },
+        {
+          "label": "ref_image_0",
+          "name": "ref_images.ref_image_0",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 278
+        },
+        {
+          "label": "ref_image_1",
+          "name": "ref_images.ref_image_1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 311
+        },
+        {
+          "label": "ref_image_2",
+          "name": "ref_images.ref_image_2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 312
+        },
+        {
+          "label": "ref_image_3",
+          "name": "ref_images.ref_image_3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "ref_video_0",
+          "name": "ref_videos.ref_video_0",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "ref_video_audio_0",
+          "name": "ref_video_audios.ref_video_audio_0",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "label": "ref_audio_0",
+          "name": "ref_audios.ref_audio_0",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 315
+        },
+        {
+          "label": "ref_audio_1",
+          "name": "ref_audios.ref_audio_1",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 279
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 276
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 277
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "widget": {
+            "name": "length"
+          },
+          "link": 275
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            270
+          ]
+        },
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            271
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "MiniMaxH3ReferenceToVideo"
+      },
+      "widgets_values": [
+        "",
+        1344,
+        768,
+        124,
+        "match"
+      ]
+    },
+    {
+      "id": 137,
+      "type": "LoadImage",
+      "pos": [
+        -2297.4198965404985,
+        5658.070571316702
+      ],
+      "size": [
+        290,
+        350
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            278
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "char1.png",
+        "image"
+      ]
+    },
+    {
+      "id": 138,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -1324.405562,
+        6093.543122
+      ],
+      "size": [
+        596.734375,
+        310.265625
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": 341
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            279
+          ]
+        }
+      ],
+      "title": "Input Text (Prompt)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 140,
+      "type": "MarkdownNote",
+      "pos": [
+        -2696.736141691358,
+        5658.360040896313
+      ],
+      "size": [
+        300,
+        520
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: Size Settings Reference",
+      "properties": {},
+      "widgets_values": [
+        "| megapixels | Aspect | Output (multiple=32) |\n|---|---|---|\n| 0.2 | 16:9 | 608 x 352 |\n| 0.3 | 16:9 | 736 x 416 |\n| 0.4 | 16:9 | 864 x 480 |\n| 0.5 | 16:9 | 960 x 544 |\n| 0.6 | 16:9 | 1056 x 608 |\n| 0.7 | 16:9 | 1152 x 640 |\n| 0.8 | 16:9 | 1216 x 672 |\n| 0.9 | 16:9 | 1280 x 736 |\n| 0.98 | 16:9 | 1344 x 768 |\n| 1.0 | 16:9 | 1376 x 768 |\n| 1.2 | 16:9 | 1504 x 832 |\n| 1.5 | 16:9 | 1664 x 928 |\n| 1.8 | 16:9 | 1824 x 1024 |\n| 2.0 | 16:9 | 1920 x 1088 |\n"
+      ],
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 146,
+      "type": "ApplyMiniMaxH3FirstBlockCache",
+      "pos": [
+        -666,
+        4452
+      ],
+      "size": [
+        290.71875,
+        226
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 305
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            301,
+            302
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "minimax-h3-firstblockcache",
+        "ver": "725973c3bfd9de6dce249bc93dc5fe27f820df31",
+        "Node name for S&R": "ApplyMiniMaxH3FirstBlockCache"
+      },
+      "widgets_values": [
+        "H3 Fast — 0.10 / max 2",
+        0.1,
+        0.1,
+        0.95,
+        2,
+        false
+      ]
+    },
+    {
+      "id": 147,
+      "type": "PathchSageAttentionKJ",
+      "pos": [
+        -976,
+        4452
+      ],
+      "size": [
+        270,
+        114
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 307
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            305
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "60cd6bc1870db94c6eeb05fbe455147a8e91c4e9",
+        "Node name for S&R": "PathchSageAttentionKJ",
+        "aux_id": "kijai/ComfyUI-KJNodes"
+      },
+      "widgets_values": [
+        "auto",
+        false
+      ]
+    },
+    {
+      "id": 148,
+      "type": "SolAttnPatch",
+      "pos": [
+        -1286,
+        4452
+      ],
+      "size": [
+        270,
+        422
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 306
+        },
+        {
+          "name": "tau_profile",
+          "shape": 7,
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            307
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "kijai/ComfyUI-SolAttn_triton",
+        "ver": "0e334dc981cfe3b0ed926ee13ad43f64914b7f5b",
+        "Node name for S&R": "SolAttnPatch"
+      },
+      "widgets_values": [
+        1.3,
+        0.2,
+        0.9,
+        4096,
+        true,
+        "exact_kv_and_rows",
+        false,
+        "2d_frame",
+        true,
+        false,
+        false,
+        ""
+      ]
+    },
+    {
+      "id": 149,
+      "type": "LoadImage",
+      "pos": [
+        -1654.512921,
+        5661.808973
+      ],
+      "size": [
+        290,
+        350
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            312
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "back.png",
+        "image"
+      ]
+    },
+    {
+      "id": 150,
+      "type": "LoadImage",
+      "pos": [
+        -1973.44976,
+        5666.270485
+      ],
+      "size": [
+        290,
+        350
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            311
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "char2.png",
+        "image"
+      ]
+    },
+    {
+      "id": 152,
+      "type": "LoadAudio",
+      "pos": [
+        -2085.517790608571,
+        6076.00163049965
+      ],
+      "size": [
+        344,
+        138
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            314
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        "Beyond the Starlight (Short).wav",
+        null,
+        null
+      ]
+    },
+    {
+      "id": 153,
+      "type": "TrimAudioDuration",
+      "pos": [
+        -1713.21287730844,
+        6075.962222453578
+      ],
+      "size": [
+        295.890625,
+        90
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 314
+        },
+        {
+          "name": "start_index",
+          "type": "FLOAT",
+          "widget": {
+            "name": "start_index"
+          },
+          "link": 320
+        },
+        {
+          "name": "duration",
+          "type": "FLOAT",
+          "widget": {
+            "name": "duration"
+          },
+          "link": 322
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            315
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "TrimAudioDuration"
+      },
+      "widgets_values": [
+        64,
+        14.5
+      ]
+    },
+    {
+      "id": 162,
+      "type": "ImpactStringSelector",
+      "pos": [
+        -2985.216855484855,
+        6378.02029195682
+      ],
+      "size": [
+        447.390625,
+        290.8125
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            316,
+            317,
+            318
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-impact-pack",
+        "ver": "429d0159ad429e64d2b3916e6e7be9c22d025c3c",
+        "Node name for S&R": "ImpactStringSelector"
+      },
+      "widgets_values": [
+        "0,0,0,dummy\n0.0, 12, 12\n11.5, 12, 12\n22.7, 11, 11\n32.7, 11, 11\n42.8, 12, 12\n53.8, 11, 11\n64.0, 15, 15\n78.0, 12.5, 12.5\n",
+        false,
+        8
+      ]
+    },
+    {
+      "id": 163,
+      "type": "RegexExtract",
+      "pos": [
+        -2376.2765252000004,
+        6409.517705599999
+      ],
+      "size": [
+        225,
+        0
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 24,
+      "mode": 0,
+      "showAdvanced": false,
+      "inputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "widget": {
+            "name": "string"
+          },
+          "link": 316
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            319
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "RegexExtract"
+      },
+      "widgets_values": [
+        "",
+        "^([^,]*)",
+        "First Group",
+        true,
+        false,
+        false,
+        1
+      ]
+    },
+    {
+      "id": 164,
+      "type": "RegexExtract",
+      "pos": [
+        -2370.447571480992,
+        6566.9032056
+      ],
+      "size": [
+        225,
+        0
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 25,
+      "mode": 0,
+      "showAdvanced": false,
+      "inputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "widget": {
+            "name": "string"
+          },
+          "link": 317
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            321
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "RegexExtract"
+      },
+      "widgets_values": [
+        "",
+        "^(?:[^,]*,){1}\\s*([^,]*)",
+        "First Group",
+        true,
+        false,
+        false,
+        1
+      ]
+    },
+    {
+      "id": 165,
+      "type": "RegexExtract",
+      "pos": [
+        -2369.8898252000004,
+        6754.408205600001
+      ],
+      "size": [
+        225,
+        0
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 26,
+      "mode": 0,
+      "showAdvanced": false,
+      "inputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "widget": {
+            "name": "string"
+          },
+          "link": 318
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            323
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "RegexExtract"
+      },
+      "widgets_values": [
+        "",
+        "^(?:[^,]*,){2}\\s*([^,]*)",
+        "First Group",
+        true,
+        false,
+        false,
+        1
+      ]
+    },
+    {
+      "id": 166,
+      "type": "ImpactConvertDataType",
+      "pos": [
+        -1978.9078799513745,
+        6382.416632316599
+      ],
+      "size": [
+        225,
+        118
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 319
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            320
+          ]
+        },
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-impact-pack",
+        "ver": "429d0159ad429e64d2b3916e6e7be9c22d025c3c",
+        "Node name for S&R": "ImpactConvertDataType"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 167,
+      "type": "ImpactConvertDataType",
+      "pos": [
+        -1973.7787625513727,
+        6549.1389628166025
+      ],
+      "size": [
+        225,
+        118
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 321
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            322
+          ]
+        },
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-impact-pack",
+        "ver": "429d0159ad429e64d2b3916e6e7be9c22d025c3c",
+        "Node name for S&R": "ImpactConvertDataType"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 168,
+      "type": "ImpactConvertDataType",
+      "pos": [
+        -1973.3146428513724,
+        6726.567385416599
+      ],
+      "size": [
+        225,
+        118
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "*",
+          "link": 323
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            324
+          ]
+        },
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-impact-pack",
+        "ver": "429d0159ad429e64d2b3916e6e7be9c22d025c3c",
+        "Node name for S&R": "ImpactConvertDataType"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 169,
+      "type": "ImpactSwitch",
+      "pos": [
+        -1971.0599835909688,
+        6906.848540447918
+      ],
+      "size": [
+        270,
+        282
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input1",
+          "shape": 7,
+          "type": "*",
+          "link": 326
+        },
+        {
+          "name": "input2",
+          "type": "STRING",
+          "link": 327
+        },
+        {
+          "name": "input3",
+          "type": "STRING",
+          "link": 328
+        },
+        {
+          "name": "input4",
+          "type": "STRING",
+          "link": 329
+        },
+        {
+          "name": "input5",
+          "type": "STRING",
+          "link": 330
+        },
+        {
+          "name": "input6",
+          "type": "STRING",
+          "link": 331
+        },
+        {
+          "name": "input7",
+          "type": "STRING",
+          "link": 332
+        },
+        {
+          "name": "input8",
+          "type": "STRING",
+          "link": 333
+        },
+        {
+          "name": "input9",
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "STRING",
+          "name": "selected_value",
+          "type": "*",
+          "links": [
+            341
+          ]
+        },
+        {
+          "name": "selected_label",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "selected_index",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-impact-pack",
+        "ver": "429d0159ad429e64d2b3916e6e7be9c22d025c3c",
+        "Node name for S&R": "ImpactSwitch"
+      },
+      "widgets_values": [
+        8,
+        false
+      ]
+    },
+    {
+      "id": 170,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -3034.722645765797,
+        6910.75455881838
+      ],
+      "size": [
+        663.953125,
+        198.21875
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            326
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "subject_definitions:\n<Subject 1> is the silver-haired girl whose appearance comes from <Picture 1> and <Picture 2>: long flowing silver-white hair with faint pale-blue tips, teal-tinted eyes, a glossy white cropped high-collar jacket with small teal star emblems on the chest and tech patches on the sleeves (as in <Picture 2>), a high-waisted navy pleated skirt printed with small white and teal stars, and white lace-up boots with white socks (as in <Picture 1>).\n<Subject 2> is the futuristic night-city plaza in <Picture 3>, featuring towering cylindrical skyscrapers, glowing blue-purple holographic billboards with vertical signage, an elevated walkway, a wet reflective tiled ground, and scattered pedestrian crowds in the distance.\n<Audio 1> is the instrumental intro of the reference song, directly reused as the complete audio track of this segment.\n\nsummary:\n[reference generation + audio reuse] The target video is a teaser-style music-video opening: a shooting star crosses the night sky and the camera tilts down into the neon city of <Subject 2>, quick cuts sweep across its glowing details, <Subject 1> is revealed first only by her boots stepping into frame, and the segment ends on her face as she looks up and takes a breath to sing, all over the instrumental intro from <Audio 1>.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 3], [Shot 4], [Shot 5]): fully_preserved - her silver-white hair, teal-tinted eyes, star-emblem white jacket, navy star-print pleated skirt, and white lace-up boots are retained.\n<Subject 2> (appears in [Shot 1], [Shot 2], [Shot 3], [Shot 4], [Shot 5]): partially_preserved - the plaza's skyscrapers, holographic billboards, elevated walkway, wet reflective ground, and distant crowds are retained, while the microphone stand, portable speakers, and coiled cables in the foreground of <Picture 3> are removed, leaving the tiled ground open and empty.\n<Audio 1>: fully_copy - the instrumental intro is reused 1:1 as this segment's complete audio track.\n\ndetailed_description:\nThe target video is in a polished 2D-animated style with cool blue-purple night lighting, neon reflections on wet ground, and a dreamy music-video atmosphere.\n[Shot 1] The video opens on the deep starry night sky above <Subject 2>: a single bright shooting star streaks across the frame, leaving a thin fading trail. Following its fall, the camera tilts down with large amplitude at slow speed, and the glowing tops of the cylindrical neon skyscrapers rise into frame from below, their blue-purple holographic billboards flickering to life one after another.\n[Shot 2] At 00:03.500, the shot cuts to a closer view inside the plaza, and the camera trucks right with large amplitude at fast speed past the glowing storefronts and vertical holographic signage of <Subject 2>, the lights smearing into streaks of teal and violet, while distant pedestrians drift as silhouettes and the elevated walkway sweeps overhead.\n[Shot 3] At 00:05.000, the shot cuts to a tight low shot of the wet tiled ground, where the inverted reflections of the billboards ripple like scattered stars. Into this frame, a pair of white lace-up boots belonging to <Subject 1> steps forward one after the other, each step landing on its own reflection and sending a faint ripple of neon light outward, the hem of her navy star-print pleated skirt swaying at the top of the frame.\n[Shot 4] At 00:07.500, the shot cuts to behind her at a low angle: <Subject 1> walks toward the center of the open plaza, her long silver-white hair swaying and catching the teal and violet light, the towers of <Subject 2> soaring above her. The camera follows her in a tracking shot at slow speed as she comes to a stop.\n[Shot 5] At 00:09.500, the shot cuts to a front medium close-up, finally revealing her face: <Subject 1>, the silver-haired girl in the white star-emblem jacket, lifts her chin and gazes up at the starry sky, her teal-tinted eyes reflecting the neon glow. The camera pushes in with small amplitude at slow speed as she lowers her gaze toward the camera direction and takes a soft preparatory breath with her lips closed on the final frame.\n\noverall_soundscape:\nA low futuristic city hum with distant crowd murmur continues underneath. Her boot steps land softly on the wet tiles with faint splashes, a gentle night breeze passes, and electronic flickers from the holographic billboards are audible.\n\nnon_diegetic_music:\nThe instrumental intro from <Audio 1> is directly reused as the audience-only score for the entire segment."
+      ]
+    },
+    {
+      "id": 171,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -3033.496013563431,
+        7168.262781032774
+      ],
+      "size": [
+        663.953125,
+        205.3125
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            327
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "subject_definitions:\n<Subject 1> is the silver-haired girl whose appearance comes from <Picture 1> and <Picture 2>: long flowing silver-white hair with faint pale-blue tips, teal-tinted eyes, a glossy white cropped high-collar jacket with small teal star emblems on the chest and tech patches on the sleeves (as in <Picture 2>), a high-waisted navy pleated skirt printed with small white and teal stars, and white lace-up boots with white socks (as in <Picture 1>).\n<Subject 2> is the futuristic night-city plaza in <Picture 3>, featuring towering cylindrical skyscrapers, glowing blue-purple holographic billboards with vertical signage, an elevated walkway, a wet reflective tiled ground, and scattered pedestrian crowds in the distance.\n<Audio 1> is the segment of the reference song containing the first half of Verse 1 over the instrumental accompaniment; its vocal is performed by <Subject 1> (S1) and the full mix is directly reused as this segment's audio track.\n\nsummary:\n[reference generation + audio reuse] The target video shows <Subject 1> beginning the first verse quietly in the plaza of <Subject 2>, rendered as a fast-cut montage that contrasts with the calm melody: her lips, her downcast eyes, the star-like reflections on the wet ground, her profile, and finally a front medium shot follow one another in quick succession while her natural unamplified voice, synchronized to the reused vocal of <Audio 1>, continues seamlessly across every cut.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1], [Shot 2], [Shot 4], [Shot 5]): fully_preserved - her silver-white hair, teal-tinted eyes, star-emblem white jacket, navy star-print pleated skirt, and white lace-up boots are retained.\n<Subject 2> (appears in [Shot 2], [Shot 3], [Shot 4], [Shot 5]): partially_preserved - the plaza's holographic billboards, wet reflective ground, and night towers are retained, while the microphone stand, portable speakers, and coiled cables in <Picture 3> are removed, leaving the pavement around her open and empty.\n<Audio 1>: fully_copy - the full mix is reused 1:1 as this segment's complete audio track, and <Subject 1>'s mouth movements are synchronized to its vocal layer.\n\ndetailed_description:\nThe target video is in a polished 2D-animated style with cool blue-purple night lighting, neon reflections on wet ground, and a dreamy music-video atmosphere.\n[Shot 1] The segment opens on an extreme close-up of the lower face of <Subject 1>, the silver-haired girl: her softly lit lips, the line of her jaw, and a few drifting strands of silver hair fill the frame against a dark blurred background. Her lips part and <Subject 1> (S1) begins to sing quietly in her bare, unamplified voice, precisely synchronized to the reused vocal of <Audio 1>, <d>[Japanese] 窓の向こう　滲んだ星が</d> <scenetrans> The camera holds a static shot, and her voice continues uninterrupted into the next shot.\n[Shot 2] At 00:02.500, the shot cuts to a close-up of her downcast eyes from a slight angle, her long lashes low and the teal and violet glow of the billboards of <Subject 2> reflected as tiny points of light in her teal-tinted irises. <scenetrans> Her singing carries over seamlessly from the previous shot as the line concludes, followed by a soft intake of breath. The camera pushes in with small amplitude at slow speed.\n[Shot 3] At 00:05.000, the shot cuts to a tight low insert of the wet tiled ground of <Subject 2>: the inverted reflections of the billboards and the starry sky shimmer across the shallow film of water like scattered, blurred stars, trembling slightly. <Subject 1> (S1) begins the next line off-screen, her voice carrying over the insert, <d>[Japanese] ひとつずつ遠ざかってゆく</d> <scenetrans> The line continues seamlessly across the cut.\n[Shot 4] At 00:07.000, the shot cuts to a side profile medium close-up of <Subject 1> (S1). <scenetrans> Her singing carries over from the previous shot as she continues the line on-screen, her clasped hands held at her chest and her long silver hair drifting past her cheek, catching the teal and violet neon light. The camera trucks left with small amplitude at slow speed, letting the blurred billboard lights slide behind her profile.\n[Shot 5] At 00:09.200, the shot cuts to a front medium shot of <Subject 1> (S1) standing at the center of the open plaza, the neon towers of <Subject 2> softly out of focus behind her. She finishes the final syllables of the line, closes her lips, and takes a soft audible breath, keeping her hands loosely clasped and her gaze low. The camera holds a static shot, preserving the quiet mood on the final frame.\n\noverall_soundscape:\nA low futuristic city hum with faint distant crowd murmur continues underneath. A gentle night breeze passes, her soft intakes of breath are audible between phrases, and her singing voice sounds close and natural with no speaker reverb or electronic amplification.\n\nnon_diegetic_music:\nThe instrumental accompaniment layer of <Audio 1> is directly reused as the audience-only score throughout the segment."
+      ]
+    },
+    {
+      "id": 172,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -3030.582257563431,
+        7428.262781032774
+      ],
+      "size": [
+        651.578125,
+        205.171875
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            328
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "subject_definitions:\n<Subject 1> is the silver-haired girl whose appearance comes from <Picture 1> and <Picture 2>: long flowing silver-white hair with faint pale-blue tips, teal-tinted eyes, a glossy white cropped high-collar jacket with small teal star emblems on the chest and tech patches on the sleeves (as in <Picture 2>), a high-waisted navy pleated skirt printed with small white and teal stars, and white lace-up boots with white socks (as in <Picture 1>).\n<Subject 2> is the futuristic night-city plaza in <Picture 3>, featuring towering cylindrical skyscrapers, glowing blue-purple holographic billboards with vertical signage, an elevated walkway, a wet reflective tiled ground, and scattered pedestrian crowds in the distance.\n<Audio 1> is the segment of the reference song containing the second half of Verse 1 over the instrumental accompaniment; its vocal is performed by <Subject 1> (S1) and the full mix is directly reused as this segment's audio track.\n\nsummary:\n[reference generation + audio reuse] The target video shows <Subject 1> in the plaza of <Subject 2> lifting her gaze to the city lights as she sings the second half of the verse in her natural unamplified voice synchronized to <Audio 1>, and on the final line the camera tilts up from her inverted reflection in the wet ground to a low-angle view of her against the starry sky.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1], [Shot 2]): fully_preserved - her silver-white hair, teal-tinted eyes, star-emblem white jacket, navy star-print pleated skirt, and white lace-up boots are retained.\n<Subject 2> (appears in [Shot 1], [Shot 2]): partially_preserved - the plaza's skyscrapers, holographic billboards, wet reflective ground, and distant crowds are retained, while the microphone stand, portable speakers, and coiled cables in <Picture 3> are removed, leaving the pavement around her open and empty.\n<Audio 1>: fully_copy - the full mix is reused 1:1 as this segment's complete audio track, and <Subject 1>'s mouth movements are synchronized to its vocal layer.\n\ndetailed_description:\nThe target video is in a polished 2D-animated style with cool blue-purple night lighting, neon reflections on wet ground, and a dreamy music-video atmosphere.\n[Shot 1] A medium shot frames <Subject 1>, the silver-haired girl in the white star-emblem jacket and navy star-print pleated skirt, standing at the center of the plaza of <Subject 2>. She slowly lifts her gaze from the ground and turns her head gently from side to side, taking in the lit windows and glowing holographic billboards of the sleeping city around her. The camera trucks right with small amplitude at slow speed, letting the out-of-focus billboard lights drift across the background behind her, as <Subject 1> (S1) sings in her bare, unamplified voice, her lips synchronized to the reused vocal of <Audio 1>, <d>[Japanese] 眠る街の灯りを残して</d>\n[Shot 2] At 00:05.000, the shot cuts to the wet tiled ground of <Subject 2>: the inverted reflection of <Subject 1> stands upside down in the shallow film of water, surrounded by the drifting inverted glow of the holographic billboards and the pinpoint reflections of the stars. As she sings, <d>[Japanese] 私は夜を越えてゆく</d> the camera tilts up with large amplitude at slow speed, traveling from her reflection across her white boots and navy star-print skirt to a low-angle view of the real <Subject 1> (S1), who lifts her chin against the soaring neon towers and starry sky, her long silver hair streaming upward in the night breeze. She holds the upward gaze with quiet resolve, her hands released at her sides, as the frame settles on her framed against the stars on the final frame.\n\noverall_soundscape:\nA low futuristic city hum with faint distant crowd murmur continues underneath. A gentle night breeze passes with the soft flutter of her hair, and her singing voice sounds close and natural with no speaker reverb or electronic amplification.\n\nnon_diegetic_music:\nThe instrumental accompaniment layer of <Audio 1> is directly reused as the audience-only score throughout the segment."
+      ]
+    },
+    {
+      "id": 173,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -3022.3538185634307,
+        7687.004049032774
+      ],
+      "size": [
+        636.015625,
+        197.390625
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            329
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "subject_definitions:\n<Subject 1> is the silver-haired girl whose appearance comes from <Picture 1> and <Picture 2>: long flowing silver-white hair with faint pale-blue tips, teal-tinted eyes, a glossy white cropped high-collar jacket with small teal star emblems on the chest and tech patches on the sleeves (as in <Picture 2>), a high-waisted navy pleated skirt printed with small white and teal stars, and white lace-up boots with white socks (as in <Picture 1>).\n<Subject 2> is the futuristic night-city plaza in <Picture 3>, featuring towering cylindrical skyscrapers, glowing blue-purple holographic billboards with vertical signage, an elevated walkway, a wet reflective tiled ground, and scattered pedestrian crowds in the distance.\n<Audio 1> is the segment of the reference song containing the first half of the pre-chorus over the instrumental accompaniment; its vocal is performed by <Subject 1> (S1) and the full mix is directly reused as this segment's audio track.\n\nsummary:\n[reference generation + audio reuse] The target video shows <Subject 1> in the plaza of <Subject 2> as the song begins to build: framed from a low angle, her hair starts to flow in the wind while she sings the pre-chorus in her natural unamplified voice synchronized to <Audio 1>, and a soft light rises on her face on the second line while the camera arcs around her.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1], [Shot 2]): fully_preserved - her silver-white hair, teal-tinted eyes, star-emblem white jacket, navy star-print pleated skirt, and white lace-up boots are retained.\n<Subject 2> (appears in [Shot 1], [Shot 2]): partially_preserved - the plaza's skyscrapers, holographic billboards, wet reflective ground, and distant crowds are retained, while the microphone stand, portable speakers, and coiled cables in <Picture 3> are removed, leaving the pavement around her open and empty.\n<Audio 1>: fully_copy - the full mix is reused 1:1 as this segment's complete audio track, and <Subject 1>'s mouth movements are synchronized to its vocal layer.\n\ndetailed_description:\nThe target video is in a polished 2D-animated style with cool blue-purple night lighting, neon reflections on wet ground, and a dreamy music-video atmosphere.\n[Shot 1] A medium close-up from a slightly low angle frames <Subject 1>, the silver-haired girl in the white star-emblem jacket, against the towers and glowing billboards of <Subject 2>. The night breeze strengthens and her long silver-white hair begins to flow visibly to one side, strands catching the teal and violet neon light. She raises her face toward the sky with a more open, emotionally lifting expression as <Subject 1> (S1) sings in her bare, unamplified voice with growing intensity, her lips synchronized to the reused vocal of <Audio 1>, <d>[Japanese] もしもこの宇宙の果てまで</d> The camera begins an arc shot with small amplitude at slow speed around her.\n[Shot 2] At 00:05.000, the shot continues the movement as the camera cuts to the opposite side of her face, maintaining the low medium close-up while performing an arc shot with small amplitude at slow speed in the same direction. A soft, pale light rises gradually on her face and glints in her teal-tinted eyes, as if starlight were reaching her from far above, while she continues singing, <d>[Japanese] あなたの光が届くなら</d> Her flowing hair and the drifting bokeh of the billboard lights wrap the frame in motion, and she brings one hand lightly up toward her chest on the final frame, holding the rising emotion.\n\noverall_soundscape:\nThe night breeze grows slightly stronger, brushing audibly past with the soft flutter of her hair and jacket. A low futuristic city hum continues underneath, and her singing voice sounds close and natural with no speaker reverb or electronic amplification.\n\nnon_diegetic_music:\nThe instrumental accompaniment layer of <Audio 1> is directly reused as the audience-only score throughout the segment."
+      ]
+    },
+    {
+      "id": 174,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -3019.952891563431,
+        7936.374683032774
+      ],
+      "size": [
+        643.78125,
+        197.40625
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            330
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "subject_definitions:\n<Subject 1> is the silver-haired girl whose appearance comes from <Picture 1> and <Picture 2>: long flowing silver-white hair with faint pale-blue tips, teal-tinted eyes, a glossy white cropped high-collar jacket with small teal star emblems on the chest and tech patches on the sleeves (as in <Picture 2>), a high-waisted navy pleated skirt printed with small white and teal stars, and white lace-up boots with white socks (as in <Picture 1>).\n<Subject 2> is the futuristic night-city plaza in <Picture 3>, featuring towering cylindrical skyscrapers, glowing blue-purple holographic billboards with vertical signage, an elevated walkway, a wet reflective tiled ground, and scattered pedestrian crowds in the distance.\n<Audio 1> is the segment of the reference song containing the second half of the pre-chorus over the instrumental accompaniment; its vocal is performed by <Subject 1> (S1) and the full mix is directly reused as this segment's audio track.\n\nsummary:\n[reference generation + audio reuse] The target video is the held breath before the chorus: in close-up, <Subject 1> sings the second half of the pre-chorus in her natural unamplified voice synchronized to <Audio 1>, closing her eyes on the first line and opening them straight toward the camera on the final line, then holding the gaze through the brief instrumental lift at the end.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1], [Shot 2]): fully_preserved - her silver-white hair, teal-tinted eyes, star-emblem white jacket, and navy star-print skirt are retained.\n<Subject 2> (appears in [Shot 1], [Shot 2]): partially_preserved - the plaza's out-of-focus holographic billboards and night towers remain visible behind her, while the microphone stand, portable speakers, and coiled cables in <Picture 3> are removed and absent.\n<Audio 1>: fully_copy - the full mix is reused 1:1 as this segment's complete audio track, and <Subject 1>'s mouth movements are synchronized to its vocal layer.\n\ndetailed_description:\nThe target video is in a polished 2D-animated style with cool blue-purple night lighting, neon reflections on wet ground, and a dreamy music-video atmosphere.\n[Shot 1] A close-up frames the face and shoulders of <Subject 1>, the silver-haired girl in the white star-emblem jacket, against the softly blurred neon glow of <Subject 2>. One hand rests lightly against her chest. She lets her eyelids fall closed, her long lashes catching the pale light, as <Subject 1> (S1) sings in her bare, unamplified voice, her lips synchronized to the reused vocal of <Audio 1>, <d>[Japanese] 何千光年　離れていても</d> The camera pushes in with small amplitude at slow speed while strands of her flowing hair drift across the edge of the frame.\n[Shot 2] At 00:05.500, the shot cuts to a fractionally tighter close-up from straight on. Her eyes open, clear and steady, looking directly toward the camera with quiet, unshakable resolve as she sings, <d>[Japanese] 私は迷わない</d> She closes her lips as the line ends, holding the direct gaze while the pale light in her teal-tinted eyes intensifies slightly. The camera holds a static shot through the final beats of the segment; only her hair and the drifting bokeh behind her keep moving, sustaining the charged stillness before the chorus on the final frame.\n\noverall_soundscape:\nThe night breeze continues with the soft flutter of her hair, and a low futuristic city hum persists quietly underneath. Her singing voice sounds close and natural with no speaker reverb or electronic amplification.\n\nnon_diegetic_music:\nThe instrumental accompaniment layer of <Audio 1> is directly reused as the audience-only score, rising toward the chorus at the end of the segment."
+      ]
+    },
+    {
+      "id": 175,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -3020.582257563431,
+        8185.115951032774
+      ],
+      "size": [
+        643.78125,
+        197.40625
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            331
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "subject_definitions:\n<Subject 1> is the silver-haired girl whose appearance comes from <Picture 1> and <Picture 2>: long flowing silver-white hair with faint pale-blue tips, teal-tinted eyes, a glossy white cropped high-collar jacket with small teal star emblems on the chest and tech patches on the sleeves (as in <Picture 2>), a high-waisted navy pleated skirt printed with small white and teal stars, and white lace-up boots with white socks (as in <Picture 1>).\n<Subject 2> is the futuristic night-city plaza in <Picture 3>, featuring towering cylindrical skyscrapers, glowing blue-purple holographic billboards with vertical signage, an elevated walkway, a wet reflective tiled ground, and scattered pedestrian crowds in the distance.\n<Audio 1> is the segment of the reference song containing the first half of the chorus over the instrumental accompaniment, ending with a short instrumental fill; its vocal is performed by <Subject 1> (S1) and the full mix is directly reused as this segment's audio track.\n\nsummary:\n[reference generation + audio reuse] The target video is the emotional peak of the music video, opening with a burst of rapid jump cuts: as the chorus hits, a tight close-up of <Subject 1> snaps out to a medium shot of her flinging her arms open, then to a low-angle wide of the full plaza of <Subject 2>, all within the first sung line, and the camera then rises with star-like sparkles scattering from her hair; she holds the open pose through the short instrumental fill at the end, singing throughout in her natural unamplified voice synchronized to <Audio 1>.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1], [Shot 2], [Shot 3], [Shot 4]): fully_preserved - her silver-white hair, teal-tinted eyes, star-emblem white jacket, navy star-print pleated skirt, and white lace-up boots are retained.\n<Subject 2> (appears in [Shot 2], [Shot 3], [Shot 4]): partially_preserved - the plaza's skyscrapers, holographic billboards, elevated walkway, wet reflective ground, and distant crowds are retained, while the microphone stand, portable speakers, and coiled cables in <Picture 3> are removed, leaving the pavement around her open and empty.\n<Audio 1>: fully_copy - the full mix is reused 1:1 as this segment's complete audio track, and <Subject 1>'s mouth movements are synchronized to its vocal layer.\n\ndetailed_description:\nThe target video is in a polished 2D-animated style with cool blue-purple night lighting, neon reflections on wet ground, and a dreamy music-video atmosphere.\n[Shot 1] The segment opens on a tight close-up of the face of <Subject 1>, the silver-haired girl in the white star-emblem jacket: as the chorus hits, her eyes flash wide with exhilaration and <Subject 1> (S1) belts out the opening line in her bare, unamplified voice at full strength, her lips synchronized to the reused vocal of <Audio 1>, <d>[English] Beyond the starlight</d> <scenetrans> Her hair whips across the frame in the sudden wind, and her voice continues unbroken through the rapid cuts that follow.\n[Shot 2] At 00:01.000, a jump cut snaps out to a front medium shot along the same axis: <Subject 1> (S1) flings both arms open wide in the same instant, her long silver hair and navy star-print pleated skirt bursting outward, and a spray of star-like sparkles scatters from the pale-blue tips of her hair. <scenetrans> The sung line carries over seamlessly. The glowing billboards of <Subject 2> streak behind her as blurred bands of teal and violet.\n[Shot 3] At 00:02.000, a second jump cut snaps further out to a low-angle wide shot: the full figure of <Subject 1> (S1) stands with arms thrown open at the center of the plaza of <Subject 2>, the neon towers and starry sky soaring above her and her reflection blazing on the wet tiles. <scenetrans> The line resolves, and as she lifts her face to the sky she continues singing, <d>[Japanese] この手を伸ばして</d> The camera pedestals up with large amplitude at slow speed, rising past her while sparkles shed from her hair and drift upward into the night air.\n[Shot 4] At 00:05.500, the shot cuts to a three-quarter medium shot from a low angle, her open arms and flowing hair filling the frame against the starry sky. She stretches one hand higher toward the stars as she continues singing, <d>[Japanese] まだ見ぬ明日へ飛んでゆく</d> Her skirt and hair billow with a large sweep, sparkles streaming from them, and the reflections on the wet tiles below flare with the billboard light. As the vocal line ends, a short instrumental fill continues; she keeps her arms open and her face lifted, chest rising with a deep breath, holding the triumphant open pose through the final frame.\n\noverall_soundscape:\nA strong night wind sweeps through with the pronounced flutter of her hair, jacket, and skirt. The low futuristic city hum continues underneath, and her singing voice sounds close, powerful, and natural with no speaker reverb or electronic amplification.\n\nnon_diegetic_music:\nThe instrumental accompaniment layer of <Audio 1> is directly reused as the audience-only score, at its fullest dynamics during the chorus and continuing through the short fill at the end."
+      ]
+    },
+    {
+      "id": 176,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -3017.039135563431,
+        8435.628780032774
+      ],
+      "size": [
+        643.78125,
+        197.40625
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            332
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "subject_definitions:\n<Subject 1> is the silver-haired girl whose appearance comes from <Picture 1> and <Picture 2>: long flowing silver-white hair with faint pale-blue tips, teal-tinted eyes, a glossy white cropped high-collar jacket with small teal star emblems on the chest and tech patches on the sleeves (as in <Picture 2>), a high-waisted navy pleated skirt printed with small white and teal stars, and white lace-up boots with white socks (as in <Picture 1>).\n<Subject 2> is the futuristic night-city plaza in <Picture 3>, featuring towering cylindrical skyscrapers, glowing blue-purple holographic billboards with vertical signage, an elevated walkway, a wet reflective tiled ground, and scattered pedestrian crowds in the distance.\n<Audio 1> is the segment of the reference song containing the second half of the chorus over the instrumental accompaniment, ending as the sung melody concludes; its vocal is performed by <Subject 1> (S1) and the full mix is directly reused as this segment's audio track.\n\nsummary:\n[reference generation + audio reuse] The target video shows the final sung passage in a symmetrical three-shot structure: viewed from her right, the camera slides into the scene as <Subject 1> extends her left hand forward on the first phrase; the mirrored view from her left follows with her right hand extended on the second phrase; and a front view then pushes into a close-up for the sustained last line, star reflections glinting in her eyes as the vocal of <Audio 1> ends.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1], [Shot 2], [Shot 3]): fully_preserved - her silver-white hair, teal-tinted eyes, star-emblem white jacket, navy star-print pleated skirt, and white lace-up boots are retained.\n<Subject 2> (appears in [Shot 1], [Shot 2], [Shot 3]): partially_preserved - the plaza's skyscrapers, holographic billboards, wet reflective ground, and distant crowds are retained, while the microphone stand, portable speakers, and coiled cables in <Picture 3> are removed, leaving the pavement around her open and empty.\n<Audio 1>: fully_copy - the full mix is reused 1:1 as this segment's complete audio track, and <Subject 1>'s mouth movements are synchronized to its vocal layer.\n\ndetailed_description:\nThe target video is in a polished 2D-animated style with cool blue-purple night lighting, neon reflections on wet ground, and a dreamy music-video atmosphere.\n[Shot 1] The segment opens viewed from her right side in an upper-body close-up: the camera trucks left with large amplitude at medium speed, and <Subject 1>, the silver-haired girl in the white star-emblem jacket, glides into the frame from the left edge with the camera's sliding motion, framed in profile from the chest up against the neon towers of <Subject 2>, while blurred streaks of teal and violet billboard light sweep across the foreground with the lateral movement. As she slides fully into frame she extends her left hand forward with a graceful reaching gesture, palm open, her hair drifting with the motion, while <Subject 1> (S1) sings in her bare, unamplified voice, her lips synchronized to the reused vocal of <Audio 1>, <d>[Japanese] 砕けた夢も</d>\n[Shot 2] At 00:03.500, the shot cuts to the mirrored view from her left side in an upper-body close-up: the camera trucks right with large amplitude at medium speed, and <Subject 1> (S1) glides into the frame from the right edge with the camera's sliding motion, framed in profile from the chest up facing the opposite direction, while blurred streaks of teal and violet billboard light from <Subject 2> sweep across the foreground in the mirrored direction. As she slides fully into frame she extends her right hand forward in the same graceful reaching gesture, palm open, while she sings, <d>[Japanese] 涙の跡も</d>\n[Shot 3] At 00:07.000, the shot cuts to a front view as she draws her extended hand back and gathers both hands against her chest, her skirt swaying once as she settles. The camera pushes in with small amplitude at slow speed toward a close-up of the face of <Subject 1> (S1) as she sings the final sustained line with her whole heart, her voice stretching long and clear into the night, <d>[Japanese] 全部連れてゆくから</d> The push-in continues until her teal-tinted eyes dominate the frame, tiny star-like points of light glinting and trembling in them. As the sustained note ends, she softly closes her lips and lets out a gentle breath, her expression easing into a serene, fulfilled smile on the final frame.\n\noverall_soundscape:\nA gentle night breeze carries the flutter of her hair and skirt, the low futuristic city hum continues underneath, and her singing voice sounds close, clear, and natural with no speaker reverb or electronic amplification; a soft exhale is audible at the very end.\n\nnon_diegetic_music:\nThe instrumental accompaniment layer of <Audio 1> is directly reused as the audience-only score, sustaining the chorus dynamics and beginning to settle as the sung melody concludes."
+      ]
+    },
+    {
+      "id": 177,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -3010.4914067778245,
+        8709.399058316125
+      ],
+      "size": [
+        643.78125,
+        197.40625
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            333
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "subject_definitions:\n<Subject 1> is the silver-haired girl whose appearance comes from <Picture 1> and <Picture 2>: long flowing silver-white hair with faint pale-blue tips, teal-tinted eyes, a glossy white cropped high-collar jacket with small teal star emblems on the chest and tech patches on the sleeves (as in <Picture 2>), a high-waisted navy pleated skirt printed with small white and teal stars, and white lace-up boots with white socks (as in <Picture 1>).\n<Subject 2> is the futuristic night-city plaza in <Picture 3>, featuring towering cylindrical skyscrapers, glowing blue-purple holographic billboards with vertical signage, an elevated walkway, a wet reflective tiled ground, and scattered pedestrian crowds in the distance.\n<Audio 1> is the instrumental outro of the reference song, directly reused as the complete audio track of this segment.\n\nsummary:\n[reference generation + audio reuse] The target video is the closing of the music video: in close-up, <Subject 1> slowly opens her eyes with her hands gathered at her chest, then in profile lifts her gaze to the starry sky, a radiant joyful smile blooms across her upturned face as her hair blows in the breeze, and finally, seen from a low angle, she stretches one hand up toward the sky as the camera tilts up away from her into the starry night of <Subject 2>, where a single shooting star crosses and the video ends on the calm stars, all over the instrumental outro from <Audio 1>.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1], [Shot 2], [Shot 3], [Shot 4]): fully_preserved - her silver-white hair, teal-tinted eyes, star-emblem white jacket, navy star-print pleated skirt, and white lace-up boots are retained.\n<Subject 2> (appears in [Shot 1], [Shot 2], [Shot 3], [Shot 4]): partially_preserved - the plaza's skyscrapers, holographic billboards, wet reflective ground, distant crowds, and starry sky are retained, while the microphone stand, portable speakers, and coiled cables in <Picture 3> are removed and absent.\n<Audio 1>: fully_copy - the instrumental outro is reused 1:1 as this segment's complete audio track.\n\ndetailed_description:\nThe target video is in a polished 2D-animated style with cool blue-purple night lighting, neon reflections on wet ground, and a dreamy music-video atmosphere.\n[Shot 1] The segment opens on a close-up of the face of <Subject 1>, the silver-haired girl in the white star-emblem jacket, her eyes closed and both hands gathered gently against her chest, the neon glow of <Subject 2> blurred behind her. Her eyes slowly open, calm and clear, her expression still quiet with the lingering emotion of the song. The camera holds a static shot.\n[Shot 2] At 00:03.000, the shot cuts to a side profile medium close-up of <Subject 1>, facing across the frame, the blurred holographic billboards of <Subject 2> glowing softly behind her. She slowly lifts her gaze upward, her chin rising gently degree by degree, her hair drifting in the night breeze, until her eyes rest on the starry sky above. The camera holds a static shot, letting the quiet motion breathe.\n[Shot 3] At 00:05.500, the shot cuts to a close-up of her upturned face from a slight three-quarter angle, the starry sky and the tops of the neon towers of <Subject 2> soft behind her. As she gazes at the stars, a full, radiant, joyful smile blooms and lights up her whole expression, and a soft gust of night breeze sweeps strands of her long silver hair across her face, catching the teal and violet light. The camera holds a static shot.\n[Shot 4] At 00:07.500, the shot cuts to a low-angle view looking up at <Subject 1> against the soaring neon towers and starry sky of <Subject 2>. She stretches one hand up toward the sky, her fingers reaching gently for the stars, her sleeve slipping slightly down her raised arm. The camera tilts up with large amplitude at slow speed, traveling from her upturned face and outstretched hand up along the glowing towers and past the flickering billboards until only the deep starry night sky fills the frame. The stars shimmer quietly, and a single bright shooting star streaks across the upper part of the sky, leaving a thin fading trail. The frame holds on the star-filled sky as the trail dissolves, and the video ends on the calm expanse of stars.\n\noverall_soundscape:\nThe night wind settles into a soft, steady breeze, and the low futuristic city hum fades to a quiet murmur. Faint distant crowd sounds linger at the edge of hearing across the plaza.\n\nnon_diegetic_music:\nThe instrumental outro from <Audio 1> is directly reused as the audience-only score, gradually decreasing in volume toward the end of the segment."
+      ]
+    }
+  ],
+  "links": [
+    [
+      250,
+      120,
+      0,
+      121,
+      1,
+      "VAE"
+    ],
+    [
+      251,
+      119,
+      0,
+      122,
+      1,
+      "VAE"
+    ],
+    [
+      253,
+      129,
+      0,
+      125,
+      0,
+      "NOISE"
+    ],
+    [
+      254,
+      126,
+      0,
+      125,
+      1,
+      "GUIDER"
+    ],
+    [
+      256,
+      124,
+      0,
+      125,
+      3,
+      "SIGMAS"
+    ],
+    [
+      258,
+      122,
+      0,
+      130,
+      0,
+      "IMAGE"
+    ],
+    [
+      259,
+      121,
+      0,
+      130,
+      1,
+      "AUDIO"
+    ],
+    [
+      260,
+      130,
+      0,
+      92,
+      0,
+      "VIDEO"
+    ],
+    [
+      261,
+      132,
+      0,
+      131,
+      0,
+      "FLOAT"
+    ],
+    [
+      270,
+      136,
+      0,
+      126,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      271,
+      136,
+      1,
+      125,
+      4,
+      "LATENT"
+    ],
+    [
+      272,
+      128,
+      0,
+      136,
+      0,
+      "CLIP"
+    ],
+    [
+      273,
+      119,
+      0,
+      136,
+      1,
+      "VAE"
+    ],
+    [
+      274,
+      120,
+      0,
+      136,
+      2,
+      "VAE"
+    ],
+    [
+      275,
+      131,
+      1,
+      136,
+      14,
+      "INT"
+    ],
+    [
+      276,
+      115,
+      0,
+      136,
+      12,
+      "INT"
+    ],
+    [
+      277,
+      115,
+      1,
+      136,
+      13,
+      "INT"
+    ],
+    [
+      278,
+      137,
+      0,
+      136,
+      3,
+      "IMAGE"
+    ],
+    [
+      279,
+      138,
+      0,
+      136,
+      11,
+      "STRING"
+    ],
+    [
+      280,
+      125,
+      0,
+      122,
+      0,
+      "LATENT"
+    ],
+    [
+      281,
+      125,
+      0,
+      121,
+      0,
+      "LATENT"
+    ],
+    [
+      299,
+      123,
+      0,
+      125,
+      2,
+      "SAMPLER"
+    ],
+    [
+      301,
+      146,
+      0,
+      126,
+      0,
+      "MODEL"
+    ],
+    [
+      302,
+      146,
+      0,
+      124,
+      0,
+      "MODEL"
+    ],
+    [
+      305,
+      147,
+      0,
+      146,
+      0,
+      "MODEL"
+    ],
+    [
+      306,
+      127,
+      0,
+      148,
+      0,
+      "MODEL"
+    ],
+    [
+      307,
+      148,
+      0,
+      147,
+      0,
+      "MODEL"
+    ],
+    [
+      311,
+      150,
+      0,
+      136,
+      4,
+      "IMAGE"
+    ],
+    [
+      312,
+      149,
+      0,
+      136,
+      5,
+      "IMAGE"
+    ],
+    [
+      314,
+      152,
+      0,
+      153,
+      0,
+      "AUDIO"
+    ],
+    [
+      315,
+      153,
+      0,
+      136,
+      9,
+      "AUDIO"
+    ],
+    [
+      316,
+      162,
+      0,
+      163,
+      0,
+      "STRING"
+    ],
+    [
+      317,
+      162,
+      0,
+      164,
+      0,
+      "STRING"
+    ],
+    [
+      318,
+      162,
+      0,
+      165,
+      0,
+      "STRING"
+    ],
+    [
+      319,
+      163,
+      0,
+      166,
+      0,
+      "STRING"
+    ],
+    [
+      320,
+      166,
+      1,
+      153,
+      1,
+      "FLOAT"
+    ],
+    [
+      321,
+      164,
+      0,
+      167,
+      0,
+      "STRING"
+    ],
+    [
+      322,
+      167,
+      1,
+      153,
+      2,
+      "FLOAT"
+    ],
+    [
+      323,
+      165,
+      0,
+      168,
+      0,
+      "STRING"
+    ],
+    [
+      324,
+      168,
+      1,
+      132,
+      0,
+      "FLOAT"
+    ],
+    [
+      326,
+      170,
+      0,
+      169,
+      0,
+      "STRING"
+    ],
+    [
+      327,
+      171,
+      0,
+      169,
+      1,
+      "STRING"
+    ],
+    [
+      328,
+      172,
+      0,
+      169,
+      2,
+      "STRING"
+    ],
+    [
+      329,
+      173,
+      0,
+      169,
+      3,
+      "STRING"
+    ],
+    [
+      330,
+      174,
+      0,
+      169,
+      4,
+      "STRING"
+    ],
+    [
+      331,
+      175,
+      0,
+      169,
+      5,
+      "STRING"
+    ],
+    [
+      332,
+      176,
+      0,
+      169,
+      6,
+      "STRING"
+    ],
+    [
+      333,
+      177,
+      0,
+      169,
+      7,
+      "STRING"
+    ],
+    [
+      341,
+      169,
+      0,
+      138,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.5644739300537777,
+      "offset": [
+        2970.1415150383173,
+        -5388.467185965711
+      ]
+    },
+    "frontendVersion": "1.48.7",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}
