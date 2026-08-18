@@ -1,0 +1,1130 @@
+{
+  "id": "b1b9b257-7810-41ab-ba25-7842ffe0c0c3",
+  "revision": 0,
+  "last_node_id": 123,
+  "last_link_id": 161,
+  "nodes": [
+    {
+      "id": 73,
+      "type": "LoadVideo",
+      "pos": [
+        -2089.3188358282755,
+        -834.5191249030195
+      ],
+      "size": [
+        340,
+        550
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            143,
+            145
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0",
+        "Node name for S&R": "LoadVideo"
+      },
+      "widgets_values": [
+        "input-video.mp4",
+        "image"
+      ],
+      "widgets_values_named": {
+        "file": "input-video.mp4",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 76,
+      "type": "SaveVideo",
+      "pos": [
+        2367.4886168100347,
+        -830.5804237572804
+      ],
+      "size": [
+        390,
+        358
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 142
+        }
+      ],
+      "outputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0",
+        "Node name for S&R": "SaveVideo"
+      },
+      "widgets_values": [
+        "video/Upscaled_seedVR2",
+        "auto",
+        "auto"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "video/Upscaled_seedVR2",
+        "format": "auto",
+        "codec": "auto"
+      }
+    },
+    {
+      "id": 78,
+      "type": "MarkdownNote",
+      "pos": [
+        -2952.9621025446163,
+        -1456.0957148119255
+      ],
+      "size": [
+        500,
+        730
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: Model Links",
+      "properties": {},
+      "widgets_values": [
+        "Guide: [Subgraph](https://docs.comfy.org/interface/features/subgraph)\n\n## Model Links\n\n**vae**\n\n- [seedvr2_ema_vae_fp16.safetensors](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/vae/seedvr2_ema_vae_fp16.safetensors)\n\n**diffusion_models**\n\n- [seedvr2_7b_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_int8_convrot.safetensors)\n\n\n## Model Storage Location\n\n```\n📂 ComfyUI/\n├── 📂 models/\n│   ├── 📂 vae/\n│   │   └── seedvr2_ema_vae_fp16.safetensors\n│   └── 📂 diffusion_models/\n│       └── seedvr2_7b_int8_convrot.safetensors\n```\n\n## Report Issue\n\nNote: Please update ComfyUI first ([guide](https://docs.comfy.org/installation/update_comfyui)) and prepare required models. Desktop/Cloud updates follow stable releases, so some nightly-supported models may not be available yet.\n\n- Cannot run / runtime errors: [ComfyUI/issues](https://github.com/comfyanonymous/ComfyUI/issues)\n- UI / frontend issues: [ComfyUI_frontend/issues](https://github.com/Comfy-Org/ComfyUI_frontend/issues)\n- Workflow issues: [workflow_templates/issues](https://github.com/Comfy-Org/workflow_templates/issues)\n"
+      ],
+      "widgets_values_named": {
+        "text": "Guide: [Subgraph](https://docs.comfy.org/interface/features/subgraph)\n\n## Model Links\n\n**vae**\n\n- [seedvr2_ema_vae_fp16.safetensors](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/vae/seedvr2_ema_vae_fp16.safetensors)\n\n**diffusion_models**\n\n- [seedvr2_7b_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_int8_convrot.safetensors)\n\n\n## Model Storage Location\n\n```\n📂 ComfyUI/\n├── 📂 models/\n│   ├── 📂 vae/\n│   │   └── seedvr2_ema_vae_fp16.safetensors\n│   └── 📂 diffusion_models/\n│       └── seedvr2_7b_int8_convrot.safetensors\n```\n\n## Report Issue\n\nNote: Please update ComfyUI first ([guide](https://docs.comfy.org/installation/update_comfyui)) and prepare required models. Desktop/Cloud updates follow stable releases, so some nightly-supported models may not be available yet.\n\n- Cannot run / runtime errors: [ComfyUI/issues](https://github.com/comfyanonymous/ComfyUI/issues)\n- UI / frontend issues: [ComfyUI_frontend/issues](https://github.com/Comfy-Org/ComfyUI_frontend/issues)\n- Workflow issues: [workflow_templates/issues](https://github.com/Comfy-Org/workflow_templates/issues)\n"
+      },
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 82,
+      "type": "MarkdownNote",
+      "pos": [
+        -2958.5051338142407,
+        -622.9371754183373
+      ],
+      "size": [
+        500,
+        730
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: SeedVR2",
+      "properties": {},
+      "widgets_values": [
+        "## SeedVR2\n\nOne-step video restoration / upscale (ICLR 2026). This workflow uses the **7B Int8** model for video upscaling.\n\n- Project: [SeedVR2](https://iceclear.github.io/projects/seedvr2/)\n- ComfyUI native support: [PR #14424](https://github.com/Comfy-Org/ComfyUI/pull/14424)\n\n### Subgraph parameters\n\n- **trim_video**: enable to cut a segment before upscaling\n- **trim_start_time / duration**: trim start (seconds) and length\n- **scale_multiplier**: upscale factor (default `2`)\n- **seed / sampler / scheduler / denoise**: sampling controls; `denoise=1` means full restore\n- **color_correction_method**: optional color match to original (default `none`)\n- **unet_name / vae_name**: model files to load\n\n### Tip: long videos\n\nIf the input is too long, turn on **trim_video**, upscale in shorter segments, then merge them. This helps avoid OOM / slowdowns on long clips.\n"
+      ],
+      "widgets_values_named": {
+        "text": "## SeedVR2\n\nOne-step video restoration / upscale (ICLR 2026). This workflow uses the **7B Int8** model for video upscaling.\n\n- Project: [SeedVR2](https://iceclear.github.io/projects/seedvr2/)\n- ComfyUI native support: [PR #14424](https://github.com/Comfy-Org/ComfyUI/pull/14424)\n\n### Subgraph parameters\n\n- **trim_video**: enable to cut a segment before upscaling\n- **trim_start_time / duration**: trim start (seconds) and length\n- **scale_multiplier**: upscale factor (default `2`)\n- **seed / sampler / scheduler / denoise**: sampling controls; `denoise=1` means full restore\n- **color_correction_method**: optional color match to original (default `none`)\n- **unet_name / vae_name**: model files to load\n\n### Tip: long videos\n\nIf the input is too long, turn on **trim_video**, upscale in shorter segments, then merge them. This helps avoid OOM / slowdowns on long clips.\n"
+      },
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 106,
+      "type": "VAEEncodeTiled",
+      "pos": [
+        -123.96102744631025,
+        -997.2550138365016
+      ],
+      "size": [
+        270,
+        230
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "showAdvanced": true,
+      "inputs": [
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 127
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 128
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            147
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.27.0",
+        "Node name for S&R": "VAEEncodeTiled"
+      },
+      "widgets_values": [
+        512,
+        128,
+        64,
+        8
+      ],
+      "widgets_values_named": {
+        "tile_size": 512,
+        "overlap": 128,
+        "temporal_size": 64,
+        "temporal_overlap": 8
+      }
+    },
+    {
+      "id": 107,
+      "type": "VAELoader",
+      "pos": [
+        -2100.9931985087,
+        -1574.29593485873
+      ],
+      "size": [
+        270,
+        90
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            128,
+            132
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.27.0",
+        "Node name for S&R": "VAELoader",
+        "models": [
+          {
+            "name": "seedvr2_ema_vae_fp16.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/vae/seedvr2_ema_vae_fp16.safetensors",
+            "directory": "vae"
+          }
+        ]
+      },
+      "widgets_values": [
+        "seedvr2\\seedvr2_ema_vae_fp16.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "seedvr2\\seedvr2_ema_vae_fp16.safetensors"
+      }
+    },
+    {
+      "id": 108,
+      "type": "UNETLoader",
+      "pos": [
+        -2098.5135637197586,
+        -1438.6473432862772
+      ],
+      "size": [
+        270,
+        110
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "showAdvanced": false,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            129,
+            136
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.27.0",
+        "Node name for S&R": "UNETLoader",
+        "models": [
+          {
+            "name": "seedvr2_7b_int8_convrot.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/SeedVR2/resolve/main/diffusion_models/seedvr2_7b_int8_convrot.safetensors",
+            "directory": "diffusion_models"
+          }
+        ]
+      },
+      "widgets_values": [
+        "seedvr2\\seedvr2_7b_int8_convrot.safetensors",
+        "default"
+      ],
+      "widgets_values_named": {
+        "unet_name": "seedvr2\\seedvr2_7b_int8_convrot.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    {
+      "id": 109,
+      "type": "KSampler",
+      "pos": [
+        810.791526791959,
+        -1439.873653066828
+      ],
+      "size": [
+        270,
+        340
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 129
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 130
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 131
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 160
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            148
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.27.0",
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        959948902156062,
+        "fixed",
+        1,
+        1,
+        "euler",
+        "simple",
+        1
+      ],
+      "widgets_values_named": {
+        "seed": 959948902156062,
+        "control_after_generate": "fixed",
+        "steps": 1,
+        "cfg": 1,
+        "sampler_name": "euler",
+        "scheduler": "simple",
+        "denoise": 1
+      }
+    },
+    {
+      "id": 110,
+      "type": "VAEDecodeTiled",
+      "pos": [
+        1389.2478566136665,
+        -1565.0428847035623
+      ],
+      "size": [
+        270,
+        230
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "showAdvanced": true,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 161
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 132
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            134
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.27.0",
+        "Node name for S&R": "VAEDecodeTiled"
+      },
+      "widgets_values": [
+        512,
+        128,
+        64,
+        8
+      ],
+      "widgets_values_named": {
+        "tile_size": 512,
+        "overlap": 128,
+        "temporal_size": 64,
+        "temporal_overlap": 8
+      }
+    },
+    {
+      "id": 111,
+      "type": "ResizeImageMaskNode",
+      "pos": [
+        -779.2608976519393,
+        -1093.0648546130599
+      ],
+      "size": [
+        300,
+        118
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "IMAGE,MASK",
+          "link": 137
+        }
+      ],
+      "outputs": [
+        {
+          "name": "resized",
+          "type": "IMAGE",
+          "links": [
+            133,
+            135
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.27.0",
+        "Node name for S&R": "ResizeImageMaskNode"
+      },
+      "widgets_values": [
+        "scale by multiplier",
+        2,
+        "lanczos"
+      ],
+      "widgets_values_named": {
+        "resize_type": "scale by multiplier",
+        "resize_type.multiplier": 2,
+        "scale_method": "lanczos"
+      }
+    },
+    {
+      "id": 112,
+      "type": "SeedVR2Preprocess",
+      "pos": [
+        -439.9986161284719,
+        -996.2141664067649
+      ],
+      "size": [
+        270,
+        60
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "resized_images",
+          "type": "IMAGE",
+          "link": 133
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            127
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.27.0",
+        "Node name for S&R": "SeedVR2Preprocess"
+      }
+    },
+    {
+      "id": 113,
+      "type": "SeedVR2PostProcessing",
+      "pos": [
+        1698.2272671286014,
+        -1108.4838352954505
+      ],
+      "size": [
+        310,
+        110
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 134
+        },
+        {
+          "name": "original_resized_images",
+          "type": "IMAGE",
+          "link": 135
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            138
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.27.0",
+        "Node name for S&R": "SeedVR2PostProcessing"
+      },
+      "widgets_values": [
+        "none"
+      ],
+      "widgets_values_named": {
+        "color_correction_method": "none"
+      }
+    },
+    {
+      "id": 114,
+      "type": "SeedVR2Conditioning",
+      "pos": [
+        509.2023745258115,
+        -1417.8054257018243
+      ],
+      "size": [
+        270,
+        80
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 136
+        },
+        {
+          "label": "latent",
+          "name": "vae_conditioning",
+          "type": "LATENT",
+          "link": 159
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            130
+          ]
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            131
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.27.0",
+        "Node name for S&R": "SeedVR2Conditioning"
+      }
+    },
+    {
+      "id": 115,
+      "type": "GetVideoComponents",
+      "pos": [
+        -1070.5537036156543,
+        -832.1664829122067
+      ],
+      "size": [
+        230,
+        130
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 146
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            137
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            139
+          ]
+        },
+        {
+          "name": "fps",
+          "type": "FLOAT",
+          "links": [
+            140
+          ]
+        },
+        {
+          "name": "bit_depth",
+          "type": "INT",
+          "links": [
+            141
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0",
+        "Node name for S&R": "GetVideoComponents"
+      }
+    },
+    {
+      "id": 116,
+      "type": "CreateVideo",
+      "pos": [
+        2068.450476270863,
+        -830.9499518486252
+      ],
+      "size": [
+        270,
+        140
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 138
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 139
+        },
+        {
+          "name": "fps",
+          "type": "FLOAT",
+          "widget": {
+            "name": "fps"
+          },
+          "link": 140
+        },
+        {
+          "name": "bit_depth",
+          "shape": 7,
+          "type": "INT",
+          "widget": {
+            "name": "bit_depth"
+          },
+          "link": 141
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            142
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0",
+        "Node name for S&R": "CreateVideo"
+      },
+      "widgets_values": [
+        30,
+        8
+      ],
+      "widgets_values_named": {
+        "fps": 30,
+        "bit_depth": 8
+      }
+    },
+    {
+      "id": 117,
+      "type": "Video Slice",
+      "pos": [
+        -1684.9609867346248,
+        -732.1664829122067
+      ],
+      "size": [
+        270,
+        150
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 143
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            144
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0",
+        "Node name for S&R": "Video Slice"
+      },
+      "widgets_values": [
+        0,
+        0,
+        false
+      ],
+      "widgets_values_named": {
+        "start_time": 0,
+        "duration": 0,
+        "strict_duration": false
+      }
+    },
+    {
+      "id": 118,
+      "type": "ComfySwitchNode",
+      "pos": [
+        -1372.7573451751396,
+        -830.531403003941
+      ],
+      "size": [
+        270,
+        130
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "on_false",
+          "type": "VIDEO",
+          "link": 145
+        },
+        {
+          "name": "on_true",
+          "type": "VIDEO",
+          "link": 144
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "VIDEO",
+          "links": [
+            146
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0",
+        "Node name for S&R": "ComfySwitchNode"
+      },
+      "widgets_values": [
+        false
+      ],
+      "widgets_values_named": {
+        "switch": false
+      }
+    },
+    {
+      "id": 119,
+      "type": "SeedVR2TemporalChunk",
+      "pos": [
+        176.09980334755937,
+        -996.1464223632634
+      ],
+      "size": [
+        310,
+        110
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "link": 147
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latents",
+          "shape": 6,
+          "type": "LATENT",
+          "links": [
+            159,
+            160
+          ]
+        },
+        {
+          "name": "temporal_overlap",
+          "type": "INT",
+          "links": [
+            149
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0",
+        "Node name for S&R": "SeedVR2TemporalChunk"
+      },
+      "widgets_values": [
+        0,
+        "auto"
+      ],
+      "widgets_values_named": {
+        "temporal_overlap": 0,
+        "chunking_mode": "auto"
+      }
+    },
+    {
+      "id": 120,
+      "type": "SeedVR2TemporalMerge",
+      "pos": [
+        1112.8056478010378,
+        -1441.67224096592
+      ],
+      "size": [
+        230,
+        80
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "latents",
+          "type": "LATENT",
+          "link": 148
+        },
+        {
+          "name": "temporal_overlap",
+          "type": "INT",
+          "link": 149
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": [
+            161
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.28.0",
+        "Node name for S&R": "SeedVR2TemporalMerge"
+      }
+    }
+  ],
+  "links": [
+    [
+      127,
+      112,
+      0,
+      106,
+      0,
+      "IMAGE"
+    ],
+    [
+      128,
+      107,
+      0,
+      106,
+      1,
+      "VAE"
+    ],
+    [
+      129,
+      108,
+      0,
+      109,
+      0,
+      "MODEL"
+    ],
+    [
+      130,
+      114,
+      0,
+      109,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      131,
+      114,
+      1,
+      109,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      132,
+      107,
+      0,
+      110,
+      1,
+      "VAE"
+    ],
+    [
+      133,
+      111,
+      0,
+      112,
+      0,
+      "IMAGE"
+    ],
+    [
+      134,
+      110,
+      0,
+      113,
+      0,
+      "IMAGE"
+    ],
+    [
+      135,
+      111,
+      0,
+      113,
+      1,
+      "IMAGE"
+    ],
+    [
+      136,
+      108,
+      0,
+      114,
+      0,
+      "MODEL"
+    ],
+    [
+      137,
+      115,
+      0,
+      111,
+      0,
+      "IMAGE"
+    ],
+    [
+      138,
+      113,
+      0,
+      116,
+      0,
+      "IMAGE"
+    ],
+    [
+      139,
+      115,
+      1,
+      116,
+      1,
+      "AUDIO"
+    ],
+    [
+      140,
+      115,
+      2,
+      116,
+      2,
+      "FLOAT"
+    ],
+    [
+      141,
+      115,
+      3,
+      116,
+      3,
+      "INT"
+    ],
+    [
+      142,
+      116,
+      0,
+      76,
+      0,
+      "VIDEO"
+    ],
+    [
+      143,
+      73,
+      0,
+      117,
+      0,
+      "VIDEO"
+    ],
+    [
+      144,
+      117,
+      0,
+      118,
+      1,
+      "VIDEO"
+    ],
+    [
+      145,
+      73,
+      0,
+      118,
+      0,
+      "VIDEO"
+    ],
+    [
+      146,
+      118,
+      0,
+      115,
+      0,
+      "VIDEO"
+    ],
+    [
+      147,
+      106,
+      0,
+      119,
+      0,
+      "LATENT"
+    ],
+    [
+      148,
+      109,
+      0,
+      120,
+      0,
+      "LATENT"
+    ],
+    [
+      149,
+      119,
+      1,
+      120,
+      1,
+      "INT"
+    ],
+    [
+      159,
+      119,
+      0,
+      114,
+      1,
+      "LATENT"
+    ],
+    [
+      160,
+      119,
+      0,
+      109,
+      3,
+      "LATENT"
+    ],
+    [
+      161,
+      120,
+      0,
+      110,
+      0,
+      "LATENT"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "frontendVersion": "1.49.6",
+    "ds": {
+      "scale": 0.37974983358324255,
+      "offset": [
+        3415.8589048786575,
+        2207.0385550383344
+      ]
+    },
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}
