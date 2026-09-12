@@ -1,0 +1,976 @@
+{
+  "id": "d347af44-99db-4b07-af86-a752a8ef1b77",
+  "revision": 0,
+  "last_node_id": 26,
+  "last_link_id": 44,
+  "nodes": [
+    {
+      "id": 5,
+      "type": "EmptyYuE2LatentAudio",
+      "pos": [
+        1547.098961960663,
+        -191.23956430937722
+      ],
+      "size": [
+        290,
+        100
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seconds",
+          "type": "FLOAT",
+          "widget": {
+            "name": "seconds"
+          },
+          "link": 36
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.35.0",
+        "Node name for S&R": "EmptyYuE2LatentAudio"
+      },
+      "widgets_values": [
+        120,
+        1
+      ],
+      "widgets_values_named": {
+        "seconds": 120,
+        "batch_size": 1
+      }
+    },
+    {
+      "id": 8,
+      "type": "KSampler",
+      "pos": [
+        1921.3124999999952,
+        -249.81249999999716
+      ],
+      "size": [
+        330,
+        270
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 18
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 35
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 37
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            9,
+            22
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.35.0",
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        7,
+        "fixed",
+        32,
+        1,
+        "dpm_2",
+        "sgm_uniform",
+        1
+      ],
+      "widgets_values_named": {
+        "seed": 7,
+        "control_after_generate": "fixed",
+        "steps": 32,
+        "cfg": 1,
+        "sampler_name": "dpm_2",
+        "scheduler": "sgm_uniform",
+        "denoise": 1
+      }
+    },
+    {
+      "id": 9,
+      "type": "VAEDecodeAudio",
+      "pos": [
+        2347.8607045630124,
+        -250.9822991886532
+      ],
+      "size": [
+        280.59375,
+        54
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 9
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.35.0",
+        "Node name for S&R": "VAEDecodeAudio"
+      }
+    },
+    {
+      "id": 10,
+      "type": "SaveAudioAdvanced",
+      "pos": [
+        2668.2805725571925,
+        -431.36877323868225
+      ],
+      "size": [
+        407.21875,
+        136
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 44
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.35.0",
+        "Node name for S&R": "SaveAudioAdvanced"
+      },
+      "widgets_values": [
+        "audio/YuE2",
+        "flac"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "audio/YuE2",
+        "format": "flac"
+      }
+    },
+    {
+      "id": 12,
+      "type": "PrimitiveNode",
+      "pos": [
+        -398.867465228004,
+        -241.4916062021057
+      ],
+      "size": [
+        494.40625,
+        117.28125
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "widget": {
+            "name": "style"
+          },
+          "links": [
+            31,
+            39
+          ]
+        }
+      ],
+      "title": "style",
+      "properties": {
+        "Run widget replace on values": false
+      },
+      "widgets_values": [
+        "Style"
+      ],
+      "widgets_values_named": {
+        "value": "Style"
+      }
+    },
+    {
+      "id": 13,
+      "type": "PrimitiveNode",
+      "pos": [
+        -393.2693803328185,
+        -64.94876547435035
+      ],
+      "size": [
+        488.375,
+        314.46875
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "widget": {
+            "name": "lyrics"
+          },
+          "links": [
+            32,
+            40
+          ]
+        }
+      ],
+      "title": "lyrics",
+      "properties": {
+        "Run widget replace on values": false
+      },
+      "widgets_values": [
+        "[Verse 1]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Verse 2]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Bridge]\n\n[Final Chorus]\n\n[Outro]"
+      ],
+      "widgets_values_named": {
+        "value": "[Verse 1]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Verse 2]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Bridge]\n\n[Final Chorus]\n\n[Outro]"
+      }
+    },
+    {
+      "id": 14,
+      "type": "PreviewAny",
+      "pos": [
+        660.2800901718875,
+        35.85224317001246
+      ],
+      "size": [
+        393.015625,
+        299.703125
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 41
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            34
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.35.0",
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    },
+    {
+      "id": 15,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        -405.585478155376,
+        -472.0477817456204
+      ],
+      "size": [
+        372.4375,
+        102
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            18
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            30,
+            38
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            23
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.35.0",
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "yue2\\yue2_3b_bf16.safetensors"
+      ],
+      "widgets_values_named": {
+        "ckpt_name": "yue2\\yue2_3b_bf16.safetensors"
+      }
+    },
+    {
+      "id": 17,
+      "type": "VAEDecodeAudioTiled",
+      "pos": [
+        2352.735142379054,
+        -431.4620356270609
+      ],
+      "size": [
+        270.9375,
+        110
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 22
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 23
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            44
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.35.0",
+        "Node name for S&R": "VAEDecodeAudioTiled"
+      },
+      "widgets_values": [
+        1920,
+        128
+      ],
+      "widgets_values_named": {
+        "tile_size": 1920,
+        "overlap": 128
+      }
+    },
+    {
+      "id": 18,
+      "type": "AudioEncoderLoader",
+      "pos": [
+        -394.9999999999991,
+        452.50000000000364
+      ],
+      "size": [
+        284.953125,
+        62
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO_ENCODER",
+          "type": "AUDIO_ENCODER",
+          "links": [
+            25
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.35.0",
+        "Node name for S&R": "AudioEncoderLoader"
+      },
+      "widgets_values": [
+        "yue2\\sheetsage2_bf16.safetensors"
+      ],
+      "widgets_values_named": {
+        "audio_encoder_name": "yue2\\sheetsage2_bf16.safetensors"
+      }
+    },
+    {
+      "id": 19,
+      "type": "SheetSage2AudioToABC",
+      "pos": [
+        -4.9999999999990905,
+        508.750000000004
+      ],
+      "size": [
+        272.171875,
+        82
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "audio_encoder",
+          "type": "AUDIO_ENCODER",
+          "link": 25
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 26
+        }
+      ],
+      "outputs": [
+        {
+          "name": "abc",
+          "shape": 6,
+          "type": "STRING",
+          "links": [
+            27
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.35.0",
+        "Node name for S&R": "SheetSage2AudioToABC"
+      },
+      "widgets_values": [
+        "melody"
+      ],
+      "widgets_values_named": {
+        "mode": "melody"
+      }
+    },
+    {
+      "id": 20,
+      "type": "LoadAudio",
+      "pos": [
+        -384.9999999999991,
+        582.5000000000036
+      ],
+      "size": [
+        284,
+        138
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            26
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.35.0",
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        "reference-audio.wav",
+        null,
+        null
+      ],
+      "widgets_values_named": {
+        "audio": "reference-audio.wav",
+        "upload": null
+      }
+    },
+    {
+      "id": 21,
+      "type": "PreviewAny",
+      "pos": [
+        302.5000000000009,
+        510.0000000000041
+      ],
+      "size": [
+        509.796875,
+        280.71875
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 27
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.35.0",
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    },
+    {
+      "id": 22,
+      "type": "YuE2GenerateMusic",
+      "pos": [
+        1094.71354195419,
+        -317.847327332153
+      ],
+      "size": [
+        400,
+        408
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "showAdvanced": false,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 30
+        },
+        {
+          "name": "style",
+          "type": "STRING",
+          "widget": {
+            "name": "style"
+          },
+          "link": 31
+        },
+        {
+          "name": "lyrics",
+          "type": "STRING",
+          "widget": {
+            "name": "lyrics"
+          },
+          "link": 32
+        },
+        {
+          "name": "abc",
+          "type": "STRING",
+          "widget": {
+            "name": "abc"
+          },
+          "link": 34
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            35,
+            37
+          ]
+        },
+        {
+          "name": "seconds",
+          "type": "FLOAT",
+          "links": [
+            36
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.35.0",
+        "Node name for S&R": "YuE2GenerateMusic"
+      },
+      "widgets_values": [
+        "Style",
+        "[Verse 1]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Verse 2]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Bridge]\n\n[Final Chorus]\n\n[Outro]",
+        "",
+        17,
+        "fixed",
+        "full",
+        360,
+        1,
+        0.95,
+        100,
+        1.2
+      ],
+      "widgets_values_named": {
+        "style": "Style",
+        "lyrics": "[Verse 1]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Verse 2]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Bridge]\n\n[Final Chorus]\n\n[Outro]",
+        "abc": "",
+        "seed": 17,
+        "control_after_generate": "fixed",
+        "mode": "full",
+        "max_duration": 360,
+        "temperature": 1,
+        "top_p": 0.95,
+        "top_k": 100,
+        "repetition_penalty": 1.2
+      }
+    },
+    {
+      "id": 23,
+      "type": "YuE2GenerateABC",
+      "pos": [
+        228.93915666630585,
+        32.377836591073844
+      ],
+      "size": [
+        400,
+        250
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "showAdvanced": false,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 38
+        },
+        {
+          "name": "style",
+          "type": "STRING",
+          "widget": {
+            "name": "style"
+          },
+          "link": 39
+        },
+        {
+          "name": "lyrics",
+          "type": "STRING",
+          "widget": {
+            "name": "lyrics"
+          },
+          "link": 40
+        }
+      ],
+      "outputs": [
+        {
+          "name": "abc",
+          "type": "STRING",
+          "links": [
+            41
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.35.0",
+        "Node name for S&R": "YuE2GenerateABC"
+      },
+      "widgets_values": [
+        "Style",
+        "[Verse 1]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Verse 2]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Bridge]\n\n[Final Chorus]\n\n[Outro]",
+        10,
+        "fixed",
+        "full",
+        8192
+      ],
+      "widgets_values_named": {
+        "style": "Style",
+        "lyrics": "[Verse 1]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Verse 2]\n\n[Pre-Chorus]\n\n[Chorus]\n\n[Bridge]\n\n[Final Chorus]\n\n[Outro]",
+        "seed": 10,
+        "control_after_generate": "fixed",
+        "mode": "full",
+        "max_abc_tokens": 8192
+      }
+    },
+    {
+      "id": 25,
+      "type": "Note",
+      "pos": [
+        1932.007686924569,
+        92.3008539481524
+      ],
+      "size": [
+        329.625,
+        117.625
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "If your GPU has enough vram use the regular VAE decode for faster decoding."
+      ],
+      "widgets_values_named": {
+        "text": "If your GPU has enough vram use the regular VAE decode for faster decoding."
+      },
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 26,
+      "type": "Note",
+      "pos": [
+        -378.80137643111925,
+        773.8663764379171
+      ],
+      "size": [
+        327.265625,
+        235.40625
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "The cover feature works by using these nodes to convert an audio file to ABC music notation and then feeding it to the Yue2 Generate Music node."
+      ],
+      "widgets_values_named": {
+        "text": "The cover feature works by using these nodes to convert an audio file to ABC music notation and then feeding it to the Yue2 Generate Music node."
+      },
+      "color": "#432",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [
+      8,
+      5,
+      0,
+      8,
+      3,
+      "LATENT"
+    ],
+    [
+      9,
+      8,
+      0,
+      9,
+      0,
+      "LATENT"
+    ],
+    [
+      18,
+      15,
+      0,
+      8,
+      0,
+      "MODEL"
+    ],
+    [
+      22,
+      8,
+      0,
+      17,
+      0,
+      "LATENT"
+    ],
+    [
+      23,
+      15,
+      2,
+      17,
+      1,
+      "VAE"
+    ],
+    [
+      25,
+      18,
+      0,
+      19,
+      0,
+      "AUDIO_ENCODER"
+    ],
+    [
+      26,
+      20,
+      0,
+      19,
+      1,
+      "AUDIO"
+    ],
+    [
+      27,
+      19,
+      0,
+      21,
+      0,
+      "STRING"
+    ],
+    [
+      30,
+      15,
+      1,
+      22,
+      0,
+      "CLIP"
+    ],
+    [
+      31,
+      12,
+      0,
+      22,
+      1,
+      "STRING"
+    ],
+    [
+      32,
+      13,
+      0,
+      22,
+      2,
+      "STRING"
+    ],
+    [
+      34,
+      14,
+      0,
+      22,
+      3,
+      "STRING"
+    ],
+    [
+      35,
+      22,
+      0,
+      8,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      36,
+      22,
+      1,
+      5,
+      0,
+      "FLOAT"
+    ],
+    [
+      37,
+      22,
+      0,
+      8,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      38,
+      15,
+      1,
+      23,
+      0,
+      "CLIP"
+    ],
+    [
+      39,
+      12,
+      0,
+      23,
+      1,
+      "STRING"
+    ],
+    [
+      40,
+      13,
+      0,
+      23,
+      2,
+      "STRING"
+    ],
+    [
+      41,
+      23,
+      0,
+      14,
+      0,
+      "STRING"
+    ],
+    [
+      44,
+      17,
+      0,
+      10,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7272727272727356,
+      "offset": [
+        973.1067957371883,
+        751.8743407556491
+      ]
+    },
+    "frontendVersion": "1.52.7",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}
