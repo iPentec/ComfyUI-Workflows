@@ -1,0 +1,242 @@
+{
+  "id": "fbeb46b6-e2e0-440b-b42b-3c7664fa8b83",
+  "revision": 0,
+  "last_node_id": 6,
+  "last_link_id": 6,
+  "nodes": [
+    {
+      "id": 5,
+      "type": "SaveImage",
+      "pos": [
+        565.2503753127743,
+        72.7576544551024
+      ],
+      "size": [
+        314.66145833333337,
+        324.765625
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 6
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.31"
+      },
+      "widgets_values": [
+        "ComfyUI"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "ComfyUI"
+      }
+    },
+    {
+      "id": 4,
+      "type": "SaveImage",
+      "pos": [
+        561.7707206075015,
+        469.00041952843736
+      ],
+      "size": [
+        314.66145833333337,
+        324.765625
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.31"
+      },
+      "widgets_values": [
+        "ComfyUI"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "ComfyUI"
+      }
+    },
+    {
+      "id": 6,
+      "type": "BiRefNetRMBG",
+      "pos": [
+        183.69871899576918,
+        73.23081808935669
+      ],
+      "size": [
+        320,
+        292.7604166666667
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "MASK_IMAGE",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "2.4.0",
+        "Node name for S&R": "BiRefNetRMBG"
+      },
+      "widgets_values": [
+        "BiRefNet-general",
+        0,
+        0,
+        false,
+        false,
+        "Alpha",
+        "Alpha",
+        "#222222"
+      ],
+      "widgets_values_named": {
+        "model": "BiRefNet-general",
+        "sensitivity": 0,
+        "mask_blur": 0,
+        "mask_offset": false,
+        "invert_output": false,
+        "refine_foreground": "Alpha",
+        "background": "Alpha",
+        "background_color": "#222222"
+      },
+      "color": "#222e40",
+      "bgcolor": "#364254"
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        -241.92028775257998,
+        74.54592148953866
+      ],
+      "size": [
+        343.99739583333337,
+        364.3229166666667
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4,
+            5
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.31",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "fig-16.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "fig-16.png",
+        "upload": "image"
+      }
+    }
+  ],
+  "links": [
+    [
+      4,
+      2,
+      0,
+      4,
+      0,
+      "IMAGE"
+    ],
+    [
+      5,
+      2,
+      0,
+      6,
+      0,
+      "IMAGE"
+    ],
+    [
+      6,
+      6,
+      0,
+      5,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.9259579554899755,
+      "offset": [
+        718.9095765781695,
+        291.08144338135736
+      ]
+    },
+    "frontendVersion": "1.53.6",
+    "workflowRendererVersion": "Vue-corrected",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}
