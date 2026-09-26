@@ -1,0 +1,932 @@
+{
+  "id": "21b81bae-2a4f-4942-80b0-b2c8a95025c0",
+  "revision": 0,
+  "last_node_id": 19,
+  "last_link_id": 57,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UNETLoader",
+      "pos": [
+        110,
+        430
+      ],
+      "size": [
+        390,
+        82
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            43
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.37.0",
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "minimax-h3\\minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+        "default"
+      ],
+      "widgets_values_named": {
+        "unet_name": "minimax-h3\\minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    {
+      "id": 2,
+      "type": "CLIPLoader",
+      "pos": [
+        90,
+        880
+      ],
+      "size": [
+        390,
+        106
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            52
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.37.0",
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "minimax-h3\\qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "minimax",
+        "default"
+      ],
+      "widgets_values_named": {
+        "clip_name": "minimax-h3\\qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "type": "minimax",
+        "device": "default"
+      }
+    },
+    {
+      "id": 3,
+      "type": "VAELoader",
+      "pos": [
+        110,
+        290
+      ],
+      "size": [
+        390,
+        58
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            37
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.37.0",
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "minimax-h3\\minimax_h3_video_vae_fp16.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "minimax-h3\\minimax_h3_video_vae_fp16.safetensors"
+      }
+    },
+    {
+      "id": 4,
+      "type": "H3ImageResolutionPreset",
+      "pos": [
+        501.60055232686705,
+        1081.85350246588
+      ],
+      "size": [
+        390,
+        170
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source_image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            53
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            57
+          ]
+        },
+        {
+          "name": "resolution_info",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "minimax-h3-image-studio",
+        "ver": "47dea30d0bf07e7340ef0cc97e8174a15edf55b9",
+        "Image Studio": "MiniMax H3",
+        "Node name for S&R": "H3ImageResolutionPreset"
+      },
+      "widgets_values": [
+        "16:9 landscape",
+        "native detail | 0.98 MP",
+        2,
+        false
+      ],
+      "widgets_values_named": {
+        "aspect_ratio": "16:9 landscape",
+        "resolution_profile": "native detail | 0.98 MP",
+        "custom_megapixels": 2,
+        "limit_to_native_area": false
+      },
+      "color": "#443066",
+      "bgcolor": "#211635"
+    },
+    {
+      "id": 6,
+      "type": "RandomNoise",
+      "pos": [
+        1408.3191524142396,
+        173.60727363106807
+      ],
+      "size": [
+        390,
+        82
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "NOISE",
+          "type": "NOISE",
+          "links": [
+            31
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.37.0",
+        "Node name for S&R": "RandomNoise"
+      },
+      "widgets_values": [
+        1083973553400461,
+        "randomize"
+      ],
+      "widgets_values_named": {
+        "noise_seed": 1083973553400461,
+        "control_after_generate": "randomize"
+      }
+    },
+    {
+      "id": 7,
+      "type": "BasicGuider",
+      "pos": [
+        1410,
+        430
+      ],
+      "size": [
+        390,
+        46
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 28
+        },
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 55
+        }
+      ],
+      "outputs": [
+        {
+          "name": "GUIDER",
+          "type": "GUIDER",
+          "links": [
+            32
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.37.0",
+        "Node name for S&R": "BasicGuider"
+      }
+    },
+    {
+      "id": 8,
+      "type": "H3ImageSamplingPreset",
+      "pos": [
+        940,
+        430
+      ],
+      "size": [
+        390,
+        310
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 43
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            28
+          ]
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "links": [
+            33
+          ]
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "links": [
+            34
+          ]
+        },
+        {
+          "name": "sampling_info",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "minimax-h3-image-studio",
+        "ver": "47dea30d0bf07e7340ef0cc97e8174a15edf55b9",
+        "Image Studio": "MiniMax H3",
+        "Node name for S&R": "H3ImageSamplingPreset"
+      },
+      "widgets_values": [
+        "base quality | RES 20 steps",
+        "res_multistep",
+        "simple",
+        20,
+        1,
+        12,
+        3,
+        0.6,
+        0.6
+      ],
+      "widgets_values_named": {
+        "sampling_profile": "base quality | RES 20 steps",
+        "custom_sampler": "res_multistep",
+        "custom_scheduler": "simple",
+        "custom_steps": 20,
+        "custom_denoise": 1,
+        "custom_shift_video": 12,
+        "custom_shift_audio": 3,
+        "custom_beta_alpha": 0.6,
+        "custom_beta_beta": 0.6
+      },
+      "color": "#5a3424",
+      "bgcolor": "#2c1810"
+    },
+    {
+      "id": 10,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        1868.8090614886733,
+        176.8996763754046
+      ],
+      "size": [
+        390,
+        106
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise",
+          "type": "NOISE",
+          "link": 31
+        },
+        {
+          "name": "guider",
+          "type": "GUIDER",
+          "link": 32
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 33
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 34
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 56
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            36
+          ]
+        },
+        {
+          "name": "denoised_output",
+          "type": "LATENT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.37.0",
+        "Node name for S&R": "SamplerCustomAdvanced"
+      }
+    },
+    {
+      "id": 11,
+      "type": "H3ImageDecode",
+      "pos": [
+        2310.733674610179,
+        276.26066490144166
+      ],
+      "size": [
+        390,
+        166
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 36
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 37
+        }
+      ],
+      "outputs": [
+        {
+          "name": "frames",
+          "type": "IMAGE",
+          "links": [
+            38
+          ]
+        },
+        {
+          "name": "decoded_frames",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "decode_info",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "recommended_index",
+          "type": "INT",
+          "links": [
+            40
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "minimax-h3-image-studio",
+        "ver": "47dea30d0bf07e7340ef0cc97e8174a15edf55b9",
+        "Image Studio": "MiniMax H3",
+        "Node name for S&R": "H3ImageDecode"
+      },
+      "widgets_values": [
+        "temporal",
+        0,
+        "native"
+      ],
+      "widgets_values_named": {
+        "decode_mode": "temporal",
+        "latent_index": 0,
+        "spatial_decode": "native"
+      },
+      "color": "#25534d",
+      "bgcolor": "#102a27"
+    },
+    {
+      "id": 12,
+      "type": "H3ImageFrameSelector",
+      "pos": [
+        2751.912962636069,
+        276.26066490144166
+      ],
+      "size": [
+        387.4451333041993,
+        364.5547891107926
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "frames",
+          "type": "IMAGE",
+          "link": 38
+        },
+        {
+          "name": "source_image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "recommended_index",
+          "shape": 7,
+          "type": "INT",
+          "link": 40
+        }
+      ],
+      "outputs": [
+        {
+          "name": "selected_image",
+          "type": "IMAGE",
+          "links": [
+            41
+          ]
+        },
+        {
+          "name": "candidate_batch_debug",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "selected_index",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "selected_score",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "score_report",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "minimax-h3-image-studio",
+        "ver": "47dea30d0bf07e7340ef0cc97e8174a15edf55b9",
+        "Image Studio": "MiniMax H3",
+        "Node name for S&R": "H3ImageFrameSelector"
+      },
+      "widgets_values": [
+        "decode_recommended",
+        0,
+        0,
+        0,
+        1,
+        0.35,
+        4,
+        false
+      ],
+      "widgets_values_named": {
+        "strategy": "decode_recommended",
+        "manual_index": 0,
+        "skip_first_frames": 0,
+        "candidate_start": 0,
+        "candidate_end": 1,
+        "similarity_weight": 0.35,
+        "top_k": 4,
+        "emit_candidate_batch": false
+      },
+      "color": "#25534d",
+      "bgcolor": "#102a27"
+    },
+    {
+      "id": 13,
+      "type": "SaveImage",
+      "pos": [
+        3183.3633656957927,
+        275.8091909385114
+      ],
+      "size": [
+        390,
+        58
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 41
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.37.0"
+      },
+      "widgets_values": [
+        "H3_IMAGE"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "H3_IMAGE"
+      }
+    },
+    {
+      "id": 15,
+      "type": "LoraLoaderModelOnly",
+      "pos": [
+        320,
+        570
+      ],
+      "size": [
+        390,
+        82
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.37.0",
+        "Node name for S&R": "LoraLoaderModelOnly"
+      },
+      "widgets_values": [
+        "minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors",
+        1
+      ],
+      "widgets_values_named": {
+        "lora_name": "minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors",
+        "strength_model": 1
+      }
+    },
+    {
+      "id": 18,
+      "type": "LoadImage",
+      "pos": [
+        25.186482845345154,
+        2218.671618854264
+      ],
+      "size": [
+        387.3799438081502,
+        321.99995480632987
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.37.0",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "input.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "input.png",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 19,
+      "type": "H3TextToImagePrepare",
+      "pos": [
+        937.3326794303568,
+        879.0796520214016
+      ],
+      "size": [
+        399.2600158127832,
+        344.64086032348223
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 52
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 53
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 57
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            55
+          ]
+        },
+        {
+          "name": "h3_latent",
+          "type": "LATENT",
+          "links": [
+            56
+          ]
+        },
+        {
+          "name": "requested_frames",
+          "type": "INT",
+          "links": []
+        },
+        {
+          "name": "image_prompt",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "name": "run_info",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "minimax-h3-image-studio",
+        "ver": "47dea30d0bf07e7340ef0cc97e8174a15edf55b9",
+        "Image Studio": "MiniMax H3",
+        "Node name for S&R": "H3TextToImagePrepare"
+      },
+      "widgets_values": [
+        "",
+        1344,
+        768,
+        "recommended | 5 frames",
+        true
+      ],
+      "widgets_values_named": {
+        "prompt": "",
+        "width": 1344,
+        "height": 768,
+        "quality_profile": "recommended | 5 frames",
+        "optimize_for_still": true
+      },
+      "color": "#24395c",
+      "bgcolor": "#101c31"
+    }
+  ],
+  "links": [
+    [
+      28,
+      8,
+      0,
+      7,
+      0,
+      "MODEL"
+    ],
+    [
+      31,
+      6,
+      0,
+      10,
+      0,
+      "NOISE"
+    ],
+    [
+      32,
+      7,
+      0,
+      10,
+      1,
+      "GUIDER"
+    ],
+    [
+      33,
+      8,
+      1,
+      10,
+      2,
+      "SAMPLER"
+    ],
+    [
+      34,
+      8,
+      2,
+      10,
+      3,
+      "SIGMAS"
+    ],
+    [
+      36,
+      10,
+      0,
+      11,
+      0,
+      "LATENT"
+    ],
+    [
+      37,
+      3,
+      0,
+      11,
+      1,
+      "VAE"
+    ],
+    [
+      38,
+      11,
+      0,
+      12,
+      0,
+      "IMAGE"
+    ],
+    [
+      40,
+      11,
+      3,
+      12,
+      2,
+      "INT"
+    ],
+    [
+      41,
+      12,
+      0,
+      13,
+      0,
+      "IMAGE"
+    ],
+    [
+      43,
+      1,
+      0,
+      8,
+      0,
+      "MODEL"
+    ],
+    [
+      52,
+      2,
+      0,
+      19,
+      0,
+      "CLIP"
+    ],
+    [
+      53,
+      4,
+      0,
+      19,
+      1,
+      "INT"
+    ],
+    [
+      55,
+      19,
+      0,
+      7,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      56,
+      19,
+      1,
+      10,
+      4,
+      "LATENT"
+    ],
+    [
+      57,
+      4,
+      1,
+      19,
+      2,
+      "INT"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7627768444385687,
+      "offset": [
+        65.34749807954425,
+        -184.68564774980157
+      ]
+    },
+    "image_studio": {
+      "release": "v23.0.0",
+      "source_api": "examples/api/H3_IMAGE_EDIT_API.json"
+    },
+    "frontendVersion": "1.53.6",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}
