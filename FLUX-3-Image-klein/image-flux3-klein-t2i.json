@@ -1,0 +1,1123 @@
+{
+  "id": "e8f30439-267f-45de-b260-db0d114b2c85",
+  "revision": 0,
+  "last_node_id": 37,
+  "last_link_id": 63,
+  "nodes": [
+    {
+      "id": 9,
+      "type": "SaveImage",
+      "pos": [
+        2961.33863459,
+        58.261484840000136
+      ],
+      "size": [
+        550.9666376220703,
+        406.2413468963623
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 57
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "image_flux3_klein_t2i"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "image_flux3_klein_t2i"
+      }
+    },
+    {
+      "id": 19,
+      "type": "ResolutionSelector",
+      "pos": [
+        607.5623000000003,
+        626.3878100000002
+      ],
+      "size": [
+        270,
+        150
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "showAdvanced": true,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            59
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            60
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "ResolutionSelector"
+      },
+      "widgets_values": [
+        "16:9 (Widescreen)",
+        1,
+        16
+      ],
+      "widgets_values_named": {
+        "aspect_ratio": "16:9 (Widescreen)",
+        "megapixels": 1,
+        "multiple": 16
+      }
+    },
+    {
+      "id": 21,
+      "type": "Note",
+      "pos": [
+        1052.1226770000003,
+        1790.3778906000002
+      ],
+      "size": [
+        210,
+        90
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: steps",
+      "properties": {},
+      "widgets_values": [
+        "try 50 steps for better quality"
+      ],
+      "widgets_values_named": {
+        "text": "try 50 steps for better quality"
+      },
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 22,
+      "type": "PreviewAny",
+      "pos": [
+        1046.9542070000002,
+        1593.5989106000002
+      ],
+      "size": [
+        210,
+        130
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 45
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    },
+    {
+      "id": 23,
+      "type": "CreateBoundingBoxes",
+      "pos": [
+        695.8995070000003,
+        1552.6706406000008
+      ],
+      "size": [
+        292.7697609240723,
+        462.76563326477054
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "background",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "bboxes",
+          "shape": 7,
+          "type": "BOUNDING_BOX,ARRAY,STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "preview",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "bboxes",
+          "type": "BOUNDING_BOX",
+          "links": []
+        },
+        {
+          "name": "elements",
+          "type": "ARRAY",
+          "links": [
+            45
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "CreateBoundingBoxes"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        [],
+        []
+      ],
+      "widgets_values_named": {
+        "width": 1024,
+        "height": 1024,
+        "editor_state": [],
+        "last_incoming": []
+      }
+    },
+    {
+      "id": 24,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        11.05099999999993,
+        936.44204
+      ],
+      "size": [
+        490,
+        450
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            52,
+            63
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "A photorealistic wide-angle view of a freight train yard, featuring a long row of railroad tank cars on multiple railway tracks. The scene is captured from a dramatic low-angle perspective near the ground, emphasizing the massive scale and industrial details of the tank cars. Parallel railway tracks extend into the distance, with realistic steel surfaces, weathered metal textures, and natural daylight. Authentic industrial railway environment, cinematic composition, highly detailed, realistic photography."
+      ],
+      "widgets_values_named": {
+        "value": "A photorealistic wide-angle view of a freight train yard, featuring a long row of railroad tank cars on multiple railway tracks. The scene is captured from a dramatic low-angle perspective near the ground, emphasizing the massive scale and industrial details of the tank cars. Parallel railway tracks extend into the distance, with realistic steel surfaces, weathered metal textures, and natural daylight. Authentic industrial railway environment, cinematic composition, highly detailed, realistic photography."
+      }
+    },
+    {
+      "id": 25,
+      "type": "CLIPLoader",
+      "pos": [
+        -531.7690470999996,
+        1019.3741108699994
+      ],
+      "size": [
+        500,
+        110
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            61
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "CLIPLoader",
+        "models": [
+          {
+            "name": "qwen3.5_9b_flux3_prompt_upsampler_int8_convrot.safetensors",
+            "url": "https://huggingface.co/black-forest-labs/flux-3-image-klein-comfy/resolve/main/text_encoders/qwen3.5_9b_flux3_prompt_upsampler_int8_convrot.safetensors",
+            "directory": "text_encoders"
+          }
+        ]
+      },
+      "widgets_values": [
+        "flux-3-image\\qwen3.5_9b_flux3_prompt_upsampler_int8_convrot.safetensors",
+        "flux3",
+        "default"
+      ],
+      "widgets_values_named": {
+        "clip_name": "flux-3-image\\qwen3.5_9b_flux3_prompt_upsampler_int8_convrot.safetensors",
+        "type": "flux3",
+        "device": "default"
+      }
+    },
+    {
+      "id": 26,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        25.094280000000026,
+        1460
+      ],
+      "size": [
+        482.4285457336426,
+        551.0443666784668
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            62
+          ]
+        }
+      ],
+      "title": "Text (System prompt)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "You are the prompt upsampler of a text-to-image model. Expand the user's short request into ONE detailed, self-contained caption: the exact text the image model receives. Output only the caption, with no greetings, explanations, refusals, questions, Markdown, headings, JSON, coordinates, ids or angle-bracket tokens, and no quotes around it. If the input is not clearly an image request, caption a visualization of its concept. The request may begin with a \"TARGET CANVAS: W:H\" line: compose for that canvas (wide spreads content sideways, tall stacks it) and never mention the ratio or the canvas.\n\nFidelity and planning: keep every explicit subject, attribute, count, spatial constraint, style cue and piece of wording; never contradict, substitute, drop or narrow the request, and keep an abstract concept abstract. Decide everything left open as ONE concrete, consistent plan; never offer alternatives or hedge. Never re-express a stated constraint through another mechanism; add camera optics (depth of field, bokeh, blur) only when asked for or implied. Without a stated style, plan an actual photograph and open with the medium convention (\"Full-color outdoor photograph, ...\", \"Full-color indoor photograph, ...\", \"Studio photograph, ...\", \"Close-up photograph, ...\"); keep \"Photorealistic\" for renders, and turn \"photorealistic\" or \"realistic\" requests for photos into the photograph convention. Give a photograph a few ordinary, non-ideal specifics drawn from the scene's own objects instead of the stock-photo ideal. Do not invent names, brands, logos or celebrities; keep user-named ones. A long request keeps its content but not its wording: drop appraisal and sales vocabulary, turn moods into observable physical facts, and add only new concrete content with positions. Time of day is lighting, not rendered text.\n\nCaption format: one continuous prose block in the generative voice, never \"this image shows\", \"we can see\" or \"is visible\". Lead with medium and style, then scene, lighting and camera, then the subjects with concrete colors, materials and state. Every person in focus gets an observable profile: ethnicity, gender, age range, skin tone (\"fair skin\", \"brown skin\"), hair and clothing. Make the layout reconstructable from words: frame-relative positions (frame-left, frame-right, upper, lower, foreground, midground, background), sentence-initial anchors (\"On the left, ...\", \"In the background, ...\"), relations (holds, faces, behind) and a consistent order; describe up to about ten instances one by one, beyond that give the exact count and arrangement. Out-of-focus or distant planes are shapes, colors and silhouettes, never identities or readable text, and the background takes about a sixth of the caption. Be definite: no hedging adverbs, no quality or emotion judgments, no closing sentence about mood; state negations as what is present. Rendered text: transcribe every wording verbatim inside double quotes in its original language and script, keep the line breaks of multi-line text, and give its typography, color and placement; author concrete, domain-correct wording when the request needs text it does not supply, and name canonical structures (calendar, keyboard, periodic table) exactly with their full layout. All prose is English; only quoted text keeps its language. Typical length is 100 to 350 words, more for complex scenes.\n\nOutput only the caption.\n"
+      ],
+      "widgets_values_named": {
+        "value": "You are the prompt upsampler of a text-to-image model. Expand the user's short request into ONE detailed, self-contained caption: the exact text the image model receives. Output only the caption, with no greetings, explanations, refusals, questions, Markdown, headings, JSON, coordinates, ids or angle-bracket tokens, and no quotes around it. If the input is not clearly an image request, caption a visualization of its concept. The request may begin with a \"TARGET CANVAS: W:H\" line: compose for that canvas (wide spreads content sideways, tall stacks it) and never mention the ratio or the canvas.\n\nFidelity and planning: keep every explicit subject, attribute, count, spatial constraint, style cue and piece of wording; never contradict, substitute, drop or narrow the request, and keep an abstract concept abstract. Decide everything left open as ONE concrete, consistent plan; never offer alternatives or hedge. Never re-express a stated constraint through another mechanism; add camera optics (depth of field, bokeh, blur) only when asked for or implied. Without a stated style, plan an actual photograph and open with the medium convention (\"Full-color outdoor photograph, ...\", \"Full-color indoor photograph, ...\", \"Studio photograph, ...\", \"Close-up photograph, ...\"); keep \"Photorealistic\" for renders, and turn \"photorealistic\" or \"realistic\" requests for photos into the photograph convention. Give a photograph a few ordinary, non-ideal specifics drawn from the scene's own objects instead of the stock-photo ideal. Do not invent names, brands, logos or celebrities; keep user-named ones. A long request keeps its content but not its wording: drop appraisal and sales vocabulary, turn moods into observable physical facts, and add only new concrete content with positions. Time of day is lighting, not rendered text.\n\nCaption format: one continuous prose block in the generative voice, never \"this image shows\", \"we can see\" or \"is visible\". Lead with medium and style, then scene, lighting and camera, then the subjects with concrete colors, materials and state. Every person in focus gets an observable profile: ethnicity, gender, age range, skin tone (\"fair skin\", \"brown skin\"), hair and clothing. Make the layout reconstructable from words: frame-relative positions (frame-left, frame-right, upper, lower, foreground, midground, background), sentence-initial anchors (\"On the left, ...\", \"In the background, ...\"), relations (holds, faces, behind) and a consistent order; describe up to about ten instances one by one, beyond that give the exact count and arrangement. Out-of-focus or distant planes are shapes, colors and silhouettes, never identities or readable text, and the background takes about a sixth of the caption. Be definite: no hedging adverbs, no quality or emotion judgments, no closing sentence about mood; state negations as what is present. Rendered text: transcribe every wording verbatim inside double quotes in its original language and script, keep the line breaks of multi-line text, and give its typography, color and placement; author concrete, domain-correct wording when the request needs text it does not supply, and name canonical structures (calendar, keyboard, periodic table) exactly with their full layout. All prose is English; only quoted text keeps its language. Typical length is 100 to 350 words, more for complex scenes.\n\nOutput only the caption.\n"
+      }
+    },
+    {
+      "id": 27,
+      "type": "TextGenerate",
+      "pos": [
+        565.9567199999999,
+        1006.44204
+      ],
+      "size": [
+        400,
+        460
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 61
+        },
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "video",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "system_prompt",
+          "shape": 7,
+          "type": "STRING",
+          "link": 62
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 63
+        }
+      ],
+      "outputs": [
+        {
+          "name": "generated_text",
+          "type": "STRING",
+          "links": [
+            53
+          ]
+        },
+        {
+          "name": "thinking",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "TextGenerate"
+      },
+      "widgets_values": [
+        "",
+        3584,
+        "on",
+        1,
+        1,
+        0.95,
+        0,
+        1.05,
+        1057489811431080,
+        1.5,
+        false,
+        true,
+        "auto"
+      ],
+      "widgets_values_named": {
+        "prompt": "",
+        "max_length": 3584,
+        "sampling_mode": "on",
+        "sampling_mode.temperature": 1,
+        "sampling_mode.top_k": 1,
+        "sampling_mode.top_p": 0.95,
+        "sampling_mode.min_p": 0,
+        "sampling_mode.repetition_penalty": 1.05,
+        "sampling_mode.seed": 1057489811431080,
+        "sampling_mode.presence_penalty": 1.5,
+        "thinking": false,
+        "use_default_template": true,
+        "mtp": "auto"
+      }
+    },
+    {
+      "id": 28,
+      "type": "UNETLoader",
+      "pos": [
+        239.36949702000084,
+        206.30222664000007
+      ],
+      "size": [
+        340,
+        90
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            48
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "UNETLoader",
+        "models": [
+          {
+            "name": "flux3_image_klein_int8_convrot.safetensors",
+            "url": "https://huggingface.co/black-forest-labs/flux-3-image-klein-comfy/resolve/main/diffusion_models/flux3_image_klein_int8_convrot.safetensors",
+            "directory": "diffusion_models"
+          }
+        ]
+      },
+      "widgets_values": [
+        "flux-3-image\\flux3_image_klein_int8_convrot.safetensors",
+        "default"
+      ],
+      "widgets_values_named": {
+        "unet_name": "flux-3-image\\flux3_image_klein_int8_convrot.safetensors",
+        "weight_dtype": "default"
+      },
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 29,
+      "type": "CLIPTextEncode",
+      "pos": [
+        1751.9974999999997,
+        373.74849000000006
+      ],
+      "size": [
+        477.9511816406247,
+        184.48300552368153
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 46
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 47
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            49
+          ]
+        }
+      ],
+      "title": "Positive Prompt",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "A close-up photograph of a red fox standing in fresh snow at sunrise. The fox faces the camera with alert ears and amber eyes, its thick orange fur dusted with snowflakes. Soft golden light comes from the left, the background is a blurred line of snow-covered pine trees, shallow depth of field."
+      ],
+      "widgets_values_named": {
+        "text": "A close-up photograph of a red fox standing in fresh snow at sunrise. The fox faces the camera with alert ears and amber eyes, its thick orange fur dusted with snowflakes. Soft golden light comes from the left, the background is a blurred line of snow-covered pine trees, shallow depth of field."
+      },
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 30,
+      "type": "CLIPLoader",
+      "pos": [
+        243.55400000000054,
+        372.697
+      ],
+      "size": [
+        340,
+        110
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "slot_index": 0,
+          "links": [
+            46,
+            54
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "CLIPLoader",
+        "models": [
+          {
+            "name": "qwen3vl_4b_int8_convrot.safetensors",
+            "url": "https://huggingface.co/black-forest-labs/flux-3-image-klein-comfy/resolve/main/text_encoders/qwen3vl_4b_int8_convrot.safetensors",
+            "directory": "text_encoders"
+          }
+        ]
+      },
+      "widgets_values": [
+        "flux-3-image\\qwen3vl_4b_int8_convrot.safetensors",
+        "flux3",
+        "default"
+      ],
+      "widgets_values_named": {
+        "clip_name": "flux-3-image\\qwen3vl_4b_int8_convrot.safetensors",
+        "type": "flux3",
+        "device": "default"
+      },
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 31,
+      "type": "KSampler",
+      "pos": [
+        2339.32342702,
+        207.07494664000006
+      ],
+      "size": [
+        320,
+        480
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 48
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 49
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 50
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 58
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            55
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        629118549605076,
+        "randomize",
+        25,
+        3.5,
+        "euler",
+        "simple",
+        1
+      ],
+      "widgets_values_named": {
+        "seed": 629118549605076,
+        "control_after_generate": "randomize",
+        "steps": 25,
+        "cfg": 3.5,
+        "sampler_name": "euler",
+        "scheduler": "simple",
+        "denoise": 1
+      }
+    },
+    {
+      "id": 32,
+      "type": "VAELoader",
+      "pos": [
+        246.21600000000058,
+        62.88900000000025
+      ],
+      "size": [
+        340,
+        60
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "slot_index": 0,
+          "links": [
+            56
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "VAELoader",
+        "models": [
+          {
+            "name": "flux2-vae.safetensors",
+            "url": "https://huggingface.co/black-forest-labs/flux-3-image-klein-comfy/resolve/main/vae/flux2-vae.safetensors",
+            "directory": "vae"
+          }
+        ]
+      },
+      "widgets_values": [
+        "flux-3-image\\flux2-vae.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "flux-3-image\\flux2-vae.safetensors"
+      },
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 33,
+      "type": "PreviewAny",
+      "pos": [
+        1321.12519,
+        933.2210200000001
+      ],
+      "size": [
+        350,
+        490
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 51
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            47
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    },
+    {
+      "id": 34,
+      "type": "ComfySwitchNode",
+      "pos": [
+        1018.2411099999999,
+        933.2210200000001
+      ],
+      "size": [
+        270,
+        80
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "on_false",
+          "shape": 7,
+          "type": "STRING",
+          "link": 52
+        },
+        {
+          "name": "on_true",
+          "shape": 7,
+          "type": "STRING",
+          "link": 53
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "STRING",
+          "links": [
+            51
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "ComfySwitchNode"
+      },
+      "widgets_values": [
+        false
+      ],
+      "widgets_values_named": {
+        "switch": false
+      }
+    },
+    {
+      "id": 35,
+      "type": "EmptyFlux2LatentImage",
+      "pos": [
+        935.0602700000002,
+        603.1468299999999
+      ],
+      "size": [
+        300,
+        110
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 59
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 60
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            58
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "EmptyFlux2LatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ],
+      "widgets_values_named": {
+        "width": 1024,
+        "height": 1024,
+        "batch_size": 1
+      },
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 36,
+      "type": "CLIPTextEncode",
+      "pos": [
+        1752.4729499999999,
+        610
+      ],
+      "size": [
+        478.63406652832003,
+        112.66197256469718
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 54
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            50
+          ]
+        }
+      ],
+      "title": "Negative Prompt (empty = reference default)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "widgets_values_named": {
+        "text": ""
+      },
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 37,
+      "type": "VAEDecode",
+      "pos": [
+        2693.37385702,
+        57.23096664000015
+      ],
+      "size": [
+        210,
+        50
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 55
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 56
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            57
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "VAEDecode"
+      }
+    }
+  ],
+  "links": [
+    [
+      45,
+      23,
+      2,
+      22,
+      0,
+      "ARRAY"
+    ],
+    [
+      46,
+      30,
+      0,
+      29,
+      0,
+      "CLIP"
+    ],
+    [
+      47,
+      33,
+      0,
+      29,
+      1,
+      "STRING"
+    ],
+    [
+      48,
+      28,
+      0,
+      31,
+      0,
+      "MODEL"
+    ],
+    [
+      49,
+      29,
+      0,
+      31,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      50,
+      36,
+      0,
+      31,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      51,
+      34,
+      0,
+      33,
+      0,
+      "*"
+    ],
+    [
+      52,
+      24,
+      0,
+      34,
+      0,
+      "STRING"
+    ],
+    [
+      53,
+      27,
+      0,
+      34,
+      1,
+      "STRING"
+    ],
+    [
+      54,
+      30,
+      0,
+      36,
+      0,
+      "CLIP"
+    ],
+    [
+      55,
+      31,
+      0,
+      37,
+      0,
+      "LATENT"
+    ],
+    [
+      56,
+      32,
+      0,
+      37,
+      1,
+      "VAE"
+    ],
+    [
+      57,
+      37,
+      0,
+      9,
+      0,
+      "IMAGE"
+    ],
+    [
+      58,
+      35,
+      0,
+      31,
+      3,
+      "LATENT"
+    ],
+    [
+      59,
+      19,
+      0,
+      35,
+      0,
+      "INT"
+    ],
+    [
+      60,
+      19,
+      1,
+      35,
+      1,
+      "INT"
+    ],
+    [
+      61,
+      25,
+      0,
+      27,
+      0,
+      "CLIP"
+    ],
+    [
+      62,
+      26,
+      0,
+      27,
+      4,
+      "STRING"
+    ],
+    [
+      63,
+      24,
+      0,
+      27,
+      5,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.6830134553650707,
+      "offset": [
+        909.1004694513258,
+        85.31732116236977
+      ]
+    },
+    "frontendVersion": "1.55.17",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}
