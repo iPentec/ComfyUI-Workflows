@@ -1,0 +1,590 @@
+{
+  "id": "602a9b4a-8b28-4c64-a19e-fb35024af9c8",
+  "revision": 2,
+  "last_node_id": 33,
+  "last_link_id": 59,
+  "nodes": [
+    {
+      "id": 4,
+      "type": "CLIPTextEncode",
+      "pos": [
+        546.8125605675301,
+        131.39407403419588
+      ],
+      "size": [
+        420,
+        230
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 54
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            18
+          ]
+        }
+      ],
+      "title": "moss-image Positive",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.40.0",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "Three girls are sitting side by side on the landing of the japanese school's emergency stairs on the fifth floor, which are made of iron and located on the outside of the building.anime style. masterpiece, best quality."
+      ],
+      "widgets_values_named": {
+        "text": "Three girls are sitting side by side on the landing of the japanese school's emergency stairs on the fifth floor, which are made of iron and located on the outside of the building.anime style. masterpiece, best quality."
+      }
+    },
+    {
+      "id": 5,
+      "type": "CLIPTextEncode",
+      "pos": [
+        550.5772751258223,
+        410.1980013135136
+      ],
+      "size": [
+        420,
+        150
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 55
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            19
+          ]
+        }
+      ],
+      "title": "moss-image Negative",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.40.0",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "widgets_values_named": {
+        "text": ""
+      }
+    },
+    {
+      "id": 6,
+      "type": "EmptyFlux2LatentImage",
+      "pos": [
+        698.5624463116892,
+        621.4332672785305
+      ],
+      "size": [
+        270,
+        110
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            53
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.40.0",
+        "Node name for S&R": "EmptyFlux2LatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1088,
+        1
+      ],
+      "widgets_values_named": {
+        "width": 1024,
+        "height": 1088,
+        "batch_size": 1
+      }
+    },
+    {
+      "id": 16,
+      "type": "KSampler",
+      "pos": [
+        1111.0266294495136,
+        -188.8431793502245
+      ],
+      "size": [
+        270,
+        270
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 59
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 18
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 19
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 53
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            22
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.40.0",
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        722827090158823,
+        "randomize",
+        50,
+        3,
+        "euler",
+        "simple",
+        1
+      ],
+      "widgets_values_named": {
+        "seed": 722827090158823,
+        "control_after_generate": "randomize",
+        "steps": 50,
+        "cfg": 3,
+        "sampler_name": "euler",
+        "scheduler": "simple",
+        "denoise": 1
+      }
+    },
+    {
+      "id": 17,
+      "type": "VAEDecode",
+      "pos": [
+        1409.9852685366366,
+        -350.03339418436275
+      ],
+      "size": [
+        140,
+        50
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 22
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 46
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            21
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.40.0",
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 18,
+      "type": "SaveImage",
+      "pos": [
+        1667.4903586103205,
+        -348.24353939408286
+      ],
+      "size": [
+        423.33453256987707,
+        262.20970438986546
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 21
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.40.0",
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "moss-image"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "moss-image"
+      }
+    },
+    {
+      "id": 25,
+      "type": "VAELoader",
+      "pos": [
+        70.5074789973462,
+        -330.71238303391226
+      ],
+      "size": [
+        383.15796670107477,
+        86.00000423362228
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            46
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.40.0",
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "moss-image\\flux2-vae.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "moss-image\\flux2-vae.safetensors"
+      }
+    },
+    {
+      "id": 30,
+      "type": "Note",
+      "pos": [
+        -525.045148374309,
+        169.75356080534738
+      ],
+      "size": [
+        394.11482531227347,
+        378.9235018787951
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "MOSS-Image SFT \n\nCustom Node:\nhttps://github.com/OpenMOSS/MOSS-Image\nCopy \"comfyui/moss-image\" into \"ComfyUI/custom_nodes/moss-image\"\n(or search \"MOSS-Image\" in ComfyUI Manager once indexed).\n\nFile Placement:\n- Diffusion model: models/diffusion_models/moss_image_sft_int8_convrot.safetensors\n- Text encoder: models/text_encoders/qwen35_moss_int8_convrot.safetensors\n- VAE: models/vae/moss_flux2_small_vae.safetensors\n\nRecommended Settings:\n- Steps: 50\n- CFG: 3.0\n- Sampler: euler\n- Scheduler: sgm_uniform\n- Shift: 5.0 (ModelSamplingSD3)\n- Uncond skip: single_layers = 22\n- Resolution: 1024x1024 (multiples of 16)\n"
+      ],
+      "widgets_values_named": {
+        "text": "MOSS-Image SFT \n\nCustom Node:\nhttps://github.com/OpenMOSS/MOSS-Image\nCopy \"comfyui/moss-image\" into \"ComfyUI/custom_nodes/moss-image\"\n(or search \"MOSS-Image\" in ComfyUI Manager once indexed).\n\nFile Placement:\n- Diffusion model: models/diffusion_models/moss_image_sft_int8_convrot.safetensors\n- Text encoder: models/text_encoders/qwen35_moss_int8_convrot.safetensors\n- VAE: models/vae/moss_flux2_small_vae.safetensors\n\nRecommended Settings:\n- Steps: 50\n- CFG: 3.0\n- Sampler: euler\n- Scheduler: sgm_uniform\n- Shift: 5.0 (ModelSamplingSD3)\n- Uncond skip: single_layers = 22\n- Resolution: 1024x1024 (multiples of 16)\n"
+      },
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 31,
+      "type": "CLIPLoader",
+      "pos": [
+        64.60555972953648,
+        -37.636090430972445
+      ],
+      "size": [
+        398.7560384463643,
+        123.33013322293166
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "slot_index": 0,
+          "links": [
+            54,
+            55
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "moss-image\\qwen3.5_9b_int8_convrot.safetensors",
+        "moss_image",
+        "default"
+      ],
+      "widgets_values_named": {
+        "clip_name": "moss-image\\qwen3.5_9b_int8_convrot.safetensors",
+        "type": "moss_image",
+        "device": "default"
+      }
+    },
+    {
+      "id": 32,
+      "type": "UNETLoader",
+      "pos": [
+        71.87350590807637,
+        -187.8423972552613
+      ],
+      "size": [
+        383.1450967464938,
+        94.65177425398497
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            58
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "moss-image\\moss_image_sft_int8_convrot.safetensors",
+        "default"
+      ],
+      "widgets_values_named": {
+        "unet_name": "moss-image\\moss_image_sft_int8_convrot.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    {
+      "id": 33,
+      "type": "SkipLayerGuidanceDiTSimple",
+      "pos": [
+        543.8147319401271,
+        -186.6748008448344
+      ],
+      "size": [
+        398.691015625,
+        130
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 7,
+      "mode": 0,
+      "showAdvanced": true,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 58
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            59
+          ]
+        }
+      ],
+      "title": "SkipLayerGuidanceDiTSimple (uncond skips block 22)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.0",
+        "Node name for S&R": "SkipLayerGuidanceDiTSimple"
+      },
+      "widgets_values": [
+        "",
+        "22",
+        0,
+        0.5
+      ],
+      "widgets_values_named": {
+        "double_layers": "",
+        "single_layers": "22",
+        "start_percent": 0,
+        "end_percent": 0.5
+      }
+    }
+  ],
+  "links": [
+    [
+      18,
+      4,
+      0,
+      16,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      19,
+      5,
+      0,
+      16,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      21,
+      17,
+      0,
+      18,
+      0,
+      "IMAGE"
+    ],
+    [
+      22,
+      16,
+      0,
+      17,
+      0,
+      "LATENT"
+    ],
+    [
+      46,
+      25,
+      0,
+      17,
+      1,
+      "VAE"
+    ],
+    [
+      53,
+      6,
+      0,
+      16,
+      3,
+      "LATENT"
+    ],
+    [
+      54,
+      31,
+      0,
+      4,
+      0,
+      "CLIP"
+    ],
+    [
+      55,
+      31,
+      0,
+      5,
+      0,
+      "CLIP"
+    ],
+    [
+      58,
+      32,
+      0,
+      33,
+      0,
+      "MODEL"
+    ],
+    [
+      59,
+      33,
+      0,
+      16,
+      0,
+      "MODEL"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8052550000000357,
+      "offset": [
+        381.42932042003247,
+        740.488611792911
+      ]
+    },
+    "frontendVersion": "1.55.17",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "extensions": {
+    "seed_widgets": {
+      "16": 0
+    }
+  },
+  "version": 0.4
+}
