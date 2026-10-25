@@ -606,11 +606,11 @@
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "moss-image_00073_.png",
+        "input.png",
         "image"
       ],
       "widgets_values_named": {
-        "image": "moss-image_00073_.png",
+        "image": "input.png",
         "upload": "image"
       }
     },
